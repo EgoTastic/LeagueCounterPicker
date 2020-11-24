@@ -84,6 +84,8 @@ mvn package
 
 Tiedoston löytää target/
 
+**HUOM! Siirrä Picks.db .jar tiedoston kanssa samaan hakemistoon, jotta ohjelma ei yritä luoda uutta tyhjää tietokantaa ja käyttää sitä**
+
 ### Checkstyle
 
 Checkstylen suorittaminen toimii komennolla 
