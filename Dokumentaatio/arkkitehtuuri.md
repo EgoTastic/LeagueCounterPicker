@@ -4,12 +4,12 @@
   
 Ohjelma koostuu kolmesta tasosta, joista yksi on vastuussa graafisesta käyttöliittymästä, toinen sql-tietokannan käsittelystä ja kolmas sisältää varsinaisen sovelluslogiikan.
 
-<img src="https://raw.githubusercontent.com/EgoTastic/LeagueCounterPicker/Dokumentaatio/Kuvat/kuva1.png">
+<img src="https://raw.githubusercontent.com/EgoTastic/LeagueCounterPicker/main/Dokumentaatio/Kuvat/kuva1.png">
 
 ## Sovelluslogiikka
 
 Sovelluksen varsinainen toiminnalisuus muodostuu luokkien DataHandler ja DatabaseIF toiminnalisuudesta.
-<img src="https://raw.githubusercontent.com/EgoTastic/LeagueCounterPicker/Dokumentaatio/Kuvat/kuva2.png">
+<img src="https://raw.githubusercontent.com/EgoTastic/LeagueCounterPicker/main/Dokumentaatio/Kuvat/kuva2.png">
 DataHandler vastaa varsinaisesta sovelluslogiikasta ja sisältää metodit:
 
 * boolean save(Boolean victory, ArrayList<String> champs, String pick)
@@ -45,4 +45,4 @@ DatabaseIF vastaa SQL tietokannan käsittelystä
 	* Kirjaa tietokantaan uuden tilaston yksittäisen hahmon ottelutilastosta toista hahmoa vastaan
 	* Syötteenä hahmot, joiden perusteella kirjataan uusi tilasto newStat
 	
-<img src="https://raw.githubusercontent.com/EgoTastic/LeagueCounterPicker/Dokumentaatio/Kuvat/kuva3.png">
+<img src="https://raw.githubusercontent.com/EgoTastic/LeagueCounterPicker/main/Dokumentaatio/Kuvat/kuva3.png">
