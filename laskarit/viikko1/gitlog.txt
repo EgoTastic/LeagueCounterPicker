@@ -1,0 +1,113 @@
+commit 50307623f5d05ea63681c98d972413ce69812674
+Author: Miika <miika.f.koskela@gmail.com>
+Date:   Tue Nov 3 18:51:23 2020 +0200
+
+    poisto ja uudelleen nimeäminen
+
+ tiedostoja/file2             | 0
+ tiedostoja/{file1 => file22} | 0
+ 2 files changed, 0 insertions(+), 0 deletions(-)
+
+commit ef7eba1400c6c9340a63208543940268a734f6fa
+Author: Miika <miika.f.koskela@gmail.com>
+Date:   Tue Nov 3 18:48:48 2020 +0200
+
+    tiedostoja lisätty
+
+ tiedostoja/file1 | 0
+ tiedostoja/file2 | 0
+ tiedostoja/file3 | 0
+ 3 files changed, 0 insertions(+), 0 deletions(-)
+
+commit 2ef04e5f961f2db10d89745814df4e75bf935e44
+Author: Miika <miika.f.koskela@gmail.com>
+Date:   Tue Nov 3 18:45:52 2020 +0200
+
+    muutoksia
+
+ eka.txt    | 4 ++--
+ kolmas.txt | 6 +++++-
+ 2 files changed, 7 insertions(+), 3 deletions(-)
+
+commit 77ed2c09fbbb9c983556ae9dc7d2c48b4d28761d
+Author: Miika <miika.f.koskela@gmail.com>
+Date:   Tue Nov 3 18:44:39 2020 +0200
+
+    uudelleen nimeäminen
+
+ tiedosto.txt => eka.txt | 0
+ 1 file changed, 0 insertions(+), 0 deletions(-)
+
+commit 8e91905bb29c83bad3d452b5f21c144d3bb142dd
+Author: Miika <miika.f.koskela@gmail.com>
+Date:   Tue Nov 3 18:44:01 2020 +0200
+
+    poistettu toinen
+
+ toinen.txt | 1 -
+ 1 file changed, 1 deletion(-)
+
+commit 1755f54a79fd79220005bc1c5a3370ab6eedf7ae
+Author: Miika <miika.f.koskela@gmail.com>
+Date:   Tue Nov 3 18:41:22 2020 +0200
+
+    leikitty
+
+ tiedosto.txt | 5 ++---
+ 1 file changed, 2 insertions(+), 3 deletions(-)
+
+commit 01d74acc4086ae5959b16b0564f45ce49f98ce4f
+Author: Miika <miika.f.koskela@gmail.com>
+Date:   Tue Nov 3 18:40:36 2020 +0200
+
+    tekstiä tiedostoon
+
+ tiedosto.txt | 2 ++
+ 1 file changed, 2 insertions(+)
+
+commit d4185a3e2c0717c9962d1ff30aff5610b59b6293
+Author: Miika <miika.f.koskela@gmail.com>
+Date:   Tue Nov 3 18:36:26 2020 +0200
+
+    kansio lisätty
+
+ stuff/jokin.txt | 0
+ 1 file changed, 0 insertions(+), 0 deletions(-)
+
+commit 6eb3cd7c3a00a841803945ab7ae093691f834564
+Author: Miika <miika.f.koskela@gmail.com>
+Date:   Tue Nov 3 18:35:30 2020 +0200
+
+    muutettu 2 ja 3
+
+ kolmas.txt | 1 +
+ toinen.txt | 1 +
+ 2 files changed, 2 insertions(+)
+
+commit 21ab471acd0aa38d29cc5781bf15d0cbab681ea0
+Author: Miika <miika.f.koskela@gmail.com>
+Date:   Tue Nov 3 18:34:54 2020 +0200
+
+    kolmas lisäys
+
+ kolmas.txt | 0
+ 1 file changed, 0 insertions(+), 0 deletions(-)
+
+commit a496b0fa90c95868aa16e5497a14cea9cb8f10b9
+Author: Miika <miika.f.koskela@gmail.com>
+Date:   Tue Nov 3 18:33:51 2020 +0200
+
+    muutos ja lisäys
+
+ tiedosto.txt | 1 +
+ toinen.txt   | 0
+ 2 files changed, 1 insertion(+)
+
+commit 6935f131d13f231fd00ac5157a8a2f53a82c528a
+Author: Miika <miika.f.koskela@gmail.com>
+Date:   Tue Nov 3 18:32:31 2020 +0200
+
+    tiedosto.txt luotu
+
+ tiedosto.txt | 0
+ 1 file changed, 0 insertions(+), 0 deletions(-)
