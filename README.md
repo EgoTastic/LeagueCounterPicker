@@ -7,8 +7,8 @@ Sovelluksen avulla käyttäjän on mahdollista pitää kirjaa omasta suoriutumis
 ### Dokumentaatio 
   
   [Vaatimusmäärittely](https://github.com/EgoTastic/LeagueCounterPicker/blob/main/Dokumentaatio/vaatimusmäärittely.md)  
-  [Työaikakirjanpito](https://github.com/EgoTastic/LeagueCounterPicker/blob/main/Dokumentaatio/työaikakirjanpito.md)
-  [Arkkitehtuuri](https://github.com/EgoTastic/LeagueCounterPicker/blob/main/Dokumentaatio/arkkitehtuuri.md))
+  [Työaikakirjanpito](https://github.com/EgoTastic/LeagueCounterPicker/blob/main/Dokumentaatio/työaikakirjanpito.md)  
+  [Arkkitehtuuri](https://github.com/EgoTastic/LeagueCounterPicker/blob/main/Dokumentaatio/arkkitehtuuri.md)  
 
 ## Releaset
 
@@ -54,23 +54,23 @@ Alustava vaatimusmäärittely luotu
 
 Ohjelman voi ajaa suoraan paketoimatta mavenilla komennolla
 
-'''
+´´´
 mvn compile exec:java -Dexec.mainClass=leaguecounter.ui.Main
-'''
+´´´
 
 ### Testaus
 
 Testit suoritetaan komennolla
 
-'''
+´´´
 mvn test
-'''
+´´´
 
 Testikattavuusraportti luodaan komennolla
 
-'''
+´´´
 mvn jacoco:report
-'''
+´´´
 
 Kattavuusraporttiin pääsee avaamalla tiedosto _target/site/jacoco/index.html_
 
@@ -78,9 +78,9 @@ Kattavuusraporttiin pääsee avaamalla tiedosto _target/site/jacoco/index.html_
 
 Komento
 
-'''
+´´´
 mvn package
-'''
+´´´
 
 Tiedoston löytää target/
 
@@ -88,8 +88,8 @@ Tiedoston löytää target/
 
 Checkstylen suorittaminen toimii komennolla 
 
-'''
+´´´
 mvn jxr:jxr checkstyle:checkstyle
-'''
+´´´
 
 Checkstyle-raporttiin pääsee avaamalla tiedosto _target/site/checkstyle.html_
