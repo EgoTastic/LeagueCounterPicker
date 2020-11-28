@@ -12,6 +12,32 @@ Sovelluksen avulla käyttäjän on mahdollista pitää kirjaa omasta suoriutumis
 
 ## Releaset
 
+### Viikko 5
+
+  [Suorituskelpoinen jar-tiedosto](https://github.com/EgoTastic/LeagueCounterPicker/releases/viikko5)
+
+* Edellisen viikon tavoitteista toteutunut:
+  * Virheitä löydetty ja korjattu
+  * Koodia tiivistetty ja paranneltu
+  * Laajemmat metodit jaettu osiin (jonka avulla 0 checkstyle virhettä)
+  * Globaalia dataa päivitetty
+  * SQL paketointi ei tule onnistumaan, siirtyy käyttöohjeiden puolelle miten ohjelman saa toimimaan
+* SQL virhetilanteiden virheilmoituksia paranneltu
+* Varoitus lisätty jos ohjelmaa käytetään ilman tietokantaa
+* Yksi sekvenssikaavio luotu
+* Metodit ja muuttujat uudelleen nimetty koodin selkeyttämistä varten
+* Roolit lisätty tietokantaan
+* Testejä kirjoitettu uusien metodien myötä, kattavuus +80%
+* Rooliin perustuva haku toimii nyt globaalin statistiikan puolella
+* Seuraavat tavoitteet:
+  * Virheiden etsimistä
+  * JavaDOC aloitus
+  * baseStatistics täydentäminen loppuun
+  * Rooliin perustuvat ominaisuudet oman statistiikan käsittelyssä
+  * Rooli ominaisuudet tallentamisessa
+  * Testien kirjoittaminen tallennusominaisuuksille
+
+
 ### Viikko 4
 
 * Edellisen viikon tavoitteista toteutunut:
@@ -72,19 +98,32 @@ Testikattavuusraportti luodaan komennolla
 mvn jacoco:report
 ```
 
-Kattavuusraporttiin pääsee avaamalla tiedosto _target/site/jacoco/index.html_
+Kattavuusraporttiin pääsee avaamalla tiedoston _target/site/jacoco/index.html_
 
 ### .jar tiedoston luonti
 
 Komento
 
 ```
-mvn package
+mvn package  
 ```
 
-Tiedoston löytää target/
+Ohjelma löytyy tiedostosta _target/LeagueCounterPicker-1.0.jar_
 
 **HUOM! Siirrä Picks.db .jar tiedoston kanssa samaan hakemistoon, jotta ohjelma ei yritä luoda uutta tyhjää tietokantaa ja käyttää sitä**
+
+Siirron voit toteuttaa suorittamalla:
+
+```
+cp Picks.db target/Picks.db
+```
+
+.jar tiedoston voit ajaa kommennolla
+
+```
+java -jar LeagueCounterPicker-1.0.jar
+```
+
 
 ### Checkstyle
 
@@ -94,4 +133,4 @@ Checkstylen suorittaminen toimii komennolla
 mvn jxr:jxr checkstyle:checkstyle
 ```
 
-Checkstyle-raporttiin pääsee avaamalla tiedosto _target/site/checkstyle.html_
+Checkstyle-raporttiin pääsee avaamalla tiedoston _target/site/checkstyle.html_

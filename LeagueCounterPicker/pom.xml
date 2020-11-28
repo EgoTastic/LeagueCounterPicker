@@ -84,7 +84,7 @@
                 <version>0.8.3</version>
                 <configuration>
                     <excludes>
-                        <exclude>**/*MainStart.*</exclude> 
+                        <exclude>**/*Main.*</exclude> 
                         <exclude>**/*UI.*</exclude>                
                     </excludes>
                 </configuration>
