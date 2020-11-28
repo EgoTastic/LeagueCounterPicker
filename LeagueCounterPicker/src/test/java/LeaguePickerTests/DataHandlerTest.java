@@ -25,7 +25,7 @@ public class DataHandlerTest{
         ArrayList<String> enemyChampionList = new ArrayList<>();
         enemyChampionList.add("Zyra");
         String retValue = handler.getBaseRecommendation(enemyChampionList, "Role");
-        assertEquals("Alistar with 53,80%", retValue);
+        assertEquals("Alistar with 53.80%", retValue);
     }
     
     @Test
@@ -46,7 +46,7 @@ public class DataHandlerTest{
         ArrayList<String> enemyChampionList = new ArrayList<>();
         enemyChampionList.add("Akali");
         String result = handler.getPersonalRecommendation(enemyChampionList);
-        assertEquals("Blitzcrank with 100,00%", result);
+        assertEquals("Blitzcrank with 100.00%", result);
     }
     
     @Test
@@ -123,7 +123,7 @@ public class DataHandlerTest{
     public void nameChampWithCorrectInput(){
         String comp = handler.championNameAndStatistic(1, 0.6);
         
-        assertEquals("Aatrox with 60,00%", comp);
+        assertEquals("Aatrox with 60.00%", comp);
     }
     
     @Test

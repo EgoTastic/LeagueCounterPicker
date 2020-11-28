@@ -126,7 +126,8 @@ public class DataHandler {
         if (championName.equals("Error")) {
             return "No statistics";
         } else {
-            return championName + " with " + String.format("%.2f", bestWinRate * 100) + "%";
+            String nameAndStatistic = championName + " with " + String.format("%.2f", bestWinRate * 100) + "%";
+            return nameAndStatistic.replace(",", ".");
         }
     }
       
