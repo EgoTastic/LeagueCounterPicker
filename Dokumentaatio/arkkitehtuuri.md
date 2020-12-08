@@ -12,7 +12,7 @@ Käyttöliittymä muodostuu yhdestä päänäkymästä, joka sisältää tarvitt
 
 ## Sovelluslogiikka
 
-Sovelluksen varsinainen toiminnalisuus muodostuu luokkien DataHandler ja DatabaseIF toiminnalisuudesta.
+Sovelluksen varsinainen toiminnalisuus muodostuu luokkien DataHandler, DataAssistingTools ja DatabaseIF toiminnalisuudesta.
 <img src="https://raw.githubusercontent.com/EgoTastic/LeagueCounterPicker/main/Dokumentaatio/Kuvat/kuva2.png">
 DataHandler vastaa varsinaisesta sovelluslogiikasta ja sisältää metodit:
 
@@ -33,14 +33,17 @@ DataHandler vastaa varsinaisesta sovelluslogiikasta ja sisältää metodit:
 	* Syötteenä lista vastapuolen hahmovalinnoista, sekä mahdollinen rooli
 * string ArrayList<String> listChampions()
 	* Palauttaa graafiselle käyttöliittymälle listan kaikista hahmoista, jotta käyttöliittymä voi koostaa choiceBox valintojen vaihtoehdot
-* double countWinRate(ArrayList<Double> listOfWinRates)
-	* Laskee keskiarvon voittomahdollisuuksista listan perusteella
-	* Jos lista tyhjä, palauttaa -1
-	* Syötteenä lista voittomahdollisuuksista double muodossa
 * String championNameAndStatistic(int bestChampion, double bestWinRate)
 	* Muodostaa palautettavan String merkkijonon, joka sisältää hahmoehdotuksen hahmonimen sekä voittotodennäköisyyden
 	* Mikäli statistiikkaa ei ole löytynyt, palauttaa "No Statistics"
 	* Syötteenä hahmon ID sekä voittoprosentti
+	
+DataAssistingTools toimii DataHandler luokan apuluokkana, se sisältää metodeja, joilla vähennetään toistuvaa koodia ja jotka eivät itsessään kutsu DatabaseIF luokan metodeja
+
+* double countWinRate(ArrayList<Double> listOfWinRates, boolean baseStatistics)
+	* Laskee keskiarvon voittomahdollisuuksista listan perusteella
+	* Jos lista tyhjä, palauttaa -1
+	* Syötteenä lista voittomahdollisuuksista double muodossa ja tieto suoritetaanko lasku base vai own Statistics taulun mukaan
 * ArrayList<Double> transformMatchStatisticsToWinRates(ArrayList<String> listOfMatchStatistics)
 	* Muuttaa saadun listan sisältämät "voitetut ottelut / kaikki ottelut" string muotoisen listaan, voitto prosenttilistaksi
 	* Mikäli otteluita ei ole, ohittaa kyseisen tilaston
@@ -52,6 +55,9 @@ DataHandler vastaa varsinaisesta sovelluslogiikasta ja sisältää metodit:
 * String shortenRole(String role)
 	* Lyhentää roolia samaan muotoon, mitä käytetään SQL tietokannassa jotta roolia voi käyttää SQL haussa
 	* Syötteenä rooli
+* String checkEnemyList(ArrayList<String> enemyChampions)
+	* Tarkistaa onko käyttäjän valitsemat hahmot sopivia ehdotuksen hakemiseen
+	* Mikäli vastapuolen hahmoja ei valittu tai jos sama hahmo toistuu useaan kertaan, hylätään lista, eikö sovellus etsi ehdotusta
 	
 DatabaseIF vastaa SQL tietokannan käsittelystä
 
@@ -102,9 +108,24 @@ Tiedostona toimii Paketissa mukana oleva Picks.db, johon on esikirjattu yleiseen
 
 ### Hahmoehdotuksen hakeminen yleiseen dataan perustuen 
 
-"Recommend a pick" button elementin tapahtmakäsittelijä kutsuu _DataHandler_ luokan metodia _getBaseRecommendation_ antaen sille listan käyttäjän ilmoittamista vastajoukkueen hahmoista, sekä oman roolivalinnan (joka voi olla myös "tyhjä" Role). 
-Metodi kutsuu oman luokan metodia _shortenRole_ josta saa takaisin SQL kyselyyn sopivan lyhennyksen roolista ja käy loopissa läpi kaikkien hahmojen ID:t läpi ja jokaisen kohdalla kutsuu omaa metodiaan _checkRoleBaseRoles_ joka tarkistaa, onko kyseisellä kierroksella läpikäytävä hahmo sovelias toivottuun rooliin, tämä metodi palauttaa true arvon mikäli sopii, tai jos käyttäjä ei ole ilmoittanut haluttua roolia. Jos rooli ei sovi, siirrytään seuraavaan hahmoon, jos sopii niin metodi kutsuu seuraavaksi _database_ luokan metodia _getWinRatesBaseStatistics_ antaen sille listan vastapuolesta, sekä kyseisellä kierroksella testattavan hahmon ID numeron.
+"Recommend a pick" button elementin tapahtumakäsittelijä kutsuu _DataHandler_ luokan metodia _getBaseRecommendation_ antaen sille listan käyttäjän ilmoittamista vastajoukkueen hahmoista, sekä oman roolivalinnan (joka voi olla myös "tyhjä" Role). Metodi kutsuu _DataAssistingTools_ luokan metodia _checkEnemyList_ joka tarkistaa onko käyttäjän valinnat fiksuja toiminnalisuuden kannalta ja palauttaa joko virheviestin tai OK.
+Metodi kutsuu _DataAssistingTools_ luokan metodia _shortenRole_ josta saa takaisin SQL kyselyyn sopivan lyhennyksen roolista ja käy loopissa läpi kaikkien hahmojen ID:t läpi ja jokaisen kohdalla kutsuu omaa metodiaan _checkRoleBaseRoles_ joka tarkistaa, onko kyseisellä kierroksella läpikäytävä hahmo sovelias toivottuun rooliin, tämä metodi palauttaa true arvon mikäli sopii, tai jos käyttäjä ei ole ilmoittanut haluttua roolia. Jos rooli ei sovi, siirrytään seuraavaan hahmoon, jos sopii niin metodi kutsuu seuraavaksi _database_ luokan metodia _getWinRatesBaseStatistics_ antaen sille listan vastapuolesta, sekä kyseisellä kierroksella testattavan hahmon ID numeron.
 Databasen metodi kutsuu oman luokan metodia _parseStatement_ joka muodostaa valmiin sql haun. _getWinRatesBaseStatistics_ käyttää tätä suorittamaan SQL-haun jonka jälkeen lisää palautettavaan listaan kaikki voittotilastot ja palauttaa sen takaisin _datahandler_ luokalle.
-Nyt _getBaseRecommendation__ metodi kutsuu omaa metodiaan _countWinRate_ joka laskee keskiarvon saamansa listan voittotodennäköisyyksistä. Mikäli mahdollisuus on suurempi kuin tähän asti suurin löydetty, ottaa metodi talteen hahmon ID:n ja voittotodennäköisyyden. Kun kaikki hahmot on testattu, kutsutaan vielä omaa metodia _championNameAndStatistic_ joka muodostaa valmiin String muotoisen lauseen, joka sitten palautetaan käyttöliittymälle esitettäväksi. Merkkijono sisältää hahmon nimen ja sen voittotodennäköisyyden, jolla paras todennäköisyys voittaa ilmoitettuja hahmoja vastaan.
+Nyt _getBaseRecommendation_ metodi kutsuu _DataAssistingTools_ luokan metodia _countWinRate_ joka laskee keskiarvon saamansa listan voittotodennäköisyyksistä. Mikäli mahdollisuus on suurempi kuin tähän asti suurin löydetty, ottaa metodi talteen hahmon ID:n ja voittotodennäköisyyden. Kun kaikki hahmot on testattu, kutsutaan vielä omaa metodia _championNameAndStatistic_ joka muodostaa valmiin String muotoisen lauseen, joka sitten palautetaan käyttöliittymälle esitettäväksi. Merkkijono sisältää hahmon nimen ja sen voittotodennäköisyyden, jolla paras todennäköisyys voittaa ilmoitettuja hahmoja vastaan.
 
 <img src="https://raw.githubusercontent.com/EgoTastic/LeagueCounterPicker/main/Dokumentaatio/Kuvat/kuva4.png">
+
+### Hahmoehdotuksen hakeminen omaan dataan perustuen
+
+"Recommend a pick" button elementin tapahtumakäsittelijä kutsuu _DataHandler_ luokan metodia _getPersonalRecommendation_ antaen sille listan käyttäjän ilmoittamista vastajoukkueen hahmoista, sekä oman roolivalinnan (joka voi olla myös "tyhjä" Role). Metodi kutsuu _DataAssistingTools_ luokan metodia _checkEnemyList_ joka tarkistaa onko käyttäjän valinnat fiksuja toiminnalisuuden kannalta ja palauttaa joko virheviestin tai OK.
+Metodi kutsuu _DataAssistingTools_ luokan metodia _shortenRole_ josta saa takaisin SQL kyselyyn sopivan lyhennyksen roolista ja käy loopissa läpi kaikkien hahmojen ID:t läpi ja jokaisen kohdalla kutsuu omaa metodiaan _checkRoleOwnRoles_ joka tarkistaa, onko kyseisellä kierroksella läpikäytävä hahmo sellainen, jota käyttäjä itse on pelannut kyseisessä roolissa, tämä metodi palauttaa true arvon mikäli sopii, tai jos käyttäjä ei ole ilmoittanut haluttua roolia. Jos rooli ei sovi, siirrytään seuraavaan hahmoon, jos sopii niin metodi kutsuu seuraavaksi _database_ luokan metodia _getWinRatesOwnStatistics_ antaen sille listan vastapuolesta, sekä kyseisellä kierroksella testattavan hahmon ID numeron.
+Databasen metodi kutsuu oman luokan metodia _parseStatement_ joka muodostaa valmiin sql haun. _getWinRatesOwnStatistics_ käyttää tätä suorittamaan SQL-haun jonka jälkeen lisää palautettavaan listaan kaikki voittotilastot ja palauttaa sen takaisin _datahandler_ luokalle.
+Nyt _getBaseRecommendation_ metodi kutsuu _DataAssistingTools_ luokan metodia _transformMatchStatisticsToWinRates_ jolle annetaan lista voittotilastoista jotka ovat String muodossa "4,9" (4 voittoa, yhdeksän ottelua yhteensä) ja muodostaa vastaavan listan joka koostuu voittoprosenteista, tämän jälkeen kutsutaan metodia _countWinRate_ joka laskee keskiarvon saamansa listan voittotodennäköisyyksistä. Mikäli mahdollisuus on suurempi kuin tähän asti suurin löydetty, ottaa metodi talteen hahmon ID:n ja voittotodennäköisyyden. Kun kaikki hahmot on testattu, kutsutaan vielä omaa metodia _championNameAndStatistic_ joka muodostaa valmiin String muotoisen lauseen, joka sitten palautetaan käyttöliittymälle esitettäväksi. Merkkijono sisältää hahmon nimen ja sen voittotodennäköisyyden, jolla paras todennäköisyys voittaa ilmoitettuja hahmoja vastaan.
+
+<img src="https://raw.githubusercontent.com/EgoTastic/LeagueCounterPicker/main/Dokumentaatio/Kuvat/kuva5.png">
+
+### Ottelun tallentaminen
+
+"Victory" ja "Defeat" button elementtien tapahtumakäsittelijät kutsuvat _DataHandler_ luokan metodia _saveMatch_ antaen sille listan vastapuolen joukkueesta, käyttäjän oman hahmovalinnan sekä roolin missä pelasi. Metodi kutsuu _DataAssistingTools_ luokan _shortenRole_ metodia joka lyhentää roolin SQL käskyille sopivaan muotoon. Tämän jälkeen _DataHandler_ kutsuu luokan _DatabaseIF_ metodia _setRolePlayed_ joka asettaa käyttäjän omiin tilastoihin, että hän on pelannu hahmovalintaansa kyseisessä roolissa, jotta tätä tietoa voidaan käyttää tulevaisuudessa hahmoehdotuksiin. Nyt käydään koko vastustajien hahmolista läpi ja kutsutaan _DatabaseIF_ luokan _getMatchStatistic_ metodia, joka toteuttaa SQL haun, missä haetaan hahmo yhdistelmän vanha ottelutilasto. Tämän jälkeen _DataHandler_ kutsuu _DataAssistingTools_ luokan _countNewSatistic_ metodia jolle annetaan vanha tilasto ja tieto, oliko ottelu voitettu vai hävitty. Metodi palauttaa uuden tallennettavan tilaston. Lopuksi kutsutaan _DatabaseIF_ metodia _setMatchStatistic_ joka suorittaa tallennuksen tietokantaan uudella tilastolla. Metodi palauttaa _UI_ luokalle true tai false sen mukaan, oliko asennus onnistunut.
+
+<img src="https://raw.githubusercontent.com/EgoTastic/LeagueCounterPicker/main/Dokumentaatio/Kuvat/kuva6.png">
