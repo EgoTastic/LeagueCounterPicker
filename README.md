@@ -9,6 +9,7 @@ Sovelluksen avulla käyttäjän on mahdollista pitää kirjaa omasta suoriutumis
   [Vaatimusmäärittely](https://github.com/EgoTastic/LeagueCounterPicker/blob/main/Dokumentaatio/vaatimusmäärittely.md)  
   [Työaikakirjanpito](https://github.com/EgoTastic/LeagueCounterPicker/blob/main/Dokumentaatio/työaikakirjanpito.md)  
   [Arkkitehtuuri](https://github.com/EgoTastic/LeagueCounterPicker/blob/main/Dokumentaatio/arkkitehtuuri.md)  
+  [Käyttöohje](https://github.com/EgoTastic/LeagueCounterPicker/blob/main/Dokumentaatio/kayttoohje.md)  
 
 ## Releaset
 
@@ -27,6 +28,7 @@ Sovelluksen avulla käyttäjän on mahdollista pitää kirjaa omasta suoriutumis
 * Lopullisen version tavoitteet
   * JavaDOC loppuun
   * baseStatistics tietokannan täydentäminen loppuun
+  * Mahdollinen "next" nappula joka antaisi seuraavaksi parhaan vaihtoehdon
   * Testejä mahdollisesti lisää (Pitää tutkia miten sql tietokannan muutokset peruutetaan testeissä)
 
 ### Viikko 5
