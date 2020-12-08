@@ -14,5 +14,5 @@
 | 28.11. | 6 | Metodien ja muuttujien kokonaisvaltainen uudelleen nimeäminen selkeyden vuoksi. Testejä lisää. Sekvenssikaavio luotu, release valmis jar luotu. Dokumentaatio päivitetty |
 | 2.12. | 3 | Toiminnallisuuden jatkamista, bugien korjailua, javaDOC kirjoittelua |
 | 4.12. | 2 | DataHandler luokan jakaminen kahteen osaan (varsinainen DatabaseIF luokan kanssa keskusteleva luokka ja erillinen aputyökaluluokka), javaDocin korjailua, testien jakamista aikaisemman luokkajaon perusteella |
-| 8.12. | 3 | Palautteen mukaisesti lisätty tarkistin duplikaattihahmojen osalta, dokumentaatio loppuun |
-| yht | 67 ||
+| 8.12. | 5 | Palautteen mukaisesti lisätty tarkistin duplikaattihahmojen osalta, dokumentaatio loppuun, käyttöohjeen luonti |
+| yht | 69 ||
