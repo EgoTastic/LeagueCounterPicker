@@ -14,8 +14,18 @@ import leaguecounter.domain.DataHandler;
  * @author miikakoskela
  */
 
+/**
+ * Class that handles UI construction
+ * 
+ */
 public class UI extends Application{
     
+    /**
+     * Constructs all UI elements and assignes functionality to button elements
+     *
+     * @param stage stage where all constructed JavaFX elements are placed to
+     */
+    @Override
        public void start(Stage stage){
         
         // Classes to use with program
@@ -69,11 +79,11 @@ public class UI extends Application{
         enemyTeam.add(new Label("ADC"), 3, 0);
         enemyTeam.add(new Label("SUPPORT"), 4, 0);
         
-        enemyTeam.setHalignment(enemyTeam.getChildren().get(1), HPos.CENTER);
-        enemyTeam.setHalignment(enemyTeam.getChildren().get(2), HPos.CENTER);
-        enemyTeam.setHalignment(enemyTeam.getChildren().get(3), HPos.CENTER);
-        enemyTeam.setHalignment(enemyTeam.getChildren().get(4), HPos.CENTER);
-        enemyTeam.setHalignment(enemyTeam.getChildren().get(5), HPos.CENTER);
+        GridPane.setHalignment(enemyTeam.getChildren().get(1), HPos.CENTER);
+        GridPane.setHalignment(enemyTeam.getChildren().get(2), HPos.CENTER);
+        GridPane.setHalignment(enemyTeam.getChildren().get(3), HPos.CENTER);
+        GridPane.setHalignment(enemyTeam.getChildren().get(4), HPos.CENTER);
+        GridPane.setHalignment(enemyTeam.getChildren().get(5), HPos.CENTER);
         
         enemyTeam.setGridLinesVisible(false);
         
@@ -164,7 +174,7 @@ public class UI extends Application{
                     enemyChampionList.add(midPick.getValue());
                     enemyChampionList.add(adcPick.getValue());
                     enemyChampionList.add(supPick.getValue());
-            boolean re = handler.saveMatch(true,enemyChampionList,championPicked.getValue());
+            boolean re = handler.saveMatch(true,enemyChampionList,championPicked.getValue(), rolePick.getValue());
             
             // Check if save was possible (victory), if it was, clear all selections, otherwise change statustext
             if (re) {
@@ -193,7 +203,7 @@ public class UI extends Application{
             enemyChampionList.add(midPick.getValue());
             enemyChampionList.add(adcPick.getValue());
             enemyChampionList.add(supPick.getValue());
-            boolean re = handler.saveMatch(false,enemyChampionList,championPicked.getValue());
+            boolean re = handler.saveMatch(false,enemyChampionList,championPicked.getValue(), rolePick.getValue());
             
             // Check if save was possible (defeat), if it was, clear all selections, otherwise change statustext
             if(re) {
@@ -225,7 +235,7 @@ public class UI extends Application{
             enemyChampionList.add(adcPick.getValue());
             enemyChampionList.add(supPick.getValue());
             
-            String persPick = handler.getPersonalRecommendation(enemyChampionList);
+            String persPick = handler.getPersonalRecommendation(enemyChampionList, rolePick.getValue());
             String basePick = handler.getBaseRecommendation(enemyChampionList, rolePick.getValue());
             
             yourRecommend.setText(persPick);
@@ -240,8 +250,12 @@ public class UI extends Application{
         stage.show(); 
     }
        
+    /**
+     * Launches UI class
+     * 
+     * @param args accepted arguments that application starts with
+     */
     public static void main(String[] args) {
         launch(UI.class);
-    }           
-    
+    }   
 }

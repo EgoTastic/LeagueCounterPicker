@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import org.junit.jupiter.api.Test;
 import static org.junit.Assert.*;
 import leaguecounter.database.DatabaseIF;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 
 /**
@@ -13,10 +14,10 @@ import org.junit.jupiter.api.BeforeEach;
 
 public class DatabaseIFTest {
     
-    private DatabaseIF database;
+    private static DatabaseIF database;
     
-    @BeforeEach
-    public void setUp() {
+    @BeforeAll
+    public static void setUp() {
         database = new DatabaseIF();
     }
     
@@ -72,6 +73,11 @@ public class DatabaseIFTest {
     }
     
     @Test
+    public void checkBaseRolesWithRole(){
+        assertTrue(database.checkRoleBaseRoles(9, "Role"));
+    }
+    
+    @Test
     public void getChampNameCorrect(){
         String name = database.getChampionName(1);
         assertTrue("Aatrox".equals(name));
@@ -84,7 +90,7 @@ public class DatabaseIFTest {
     }
     
     @Test
-    public void getCHampNameIncorrect1000(){
+    public void getChampNameIncorrect1000(){
         String name = database.getChampionName(1000);
         assertTrue("Error".equals(name));
     }
@@ -99,5 +105,46 @@ public class DatabaseIFTest {
     public void getMatchStatisticIncorrect(){
         String statistic = database.getMatchStatistic("Test", "Test2");
         assertTrue("".equals(statistic));
+    }
+    
+    @Test
+    public void databaseExists(){
+        assertTrue(database.checkIfDatabaseExists());
+    }
+    
+    @Test
+    public void checkOwnRoleCorrect(){
+        assertTrue(database.checkRoleOwnRoles(13, "sup"));
+    }
+    
+    @Test
+    public void checkOwnRoleIncorret(){
+        assertFalse(database.checkRoleOwnRoles(13, "adc"));
+    }
+    
+    @Test
+    public void checkOwnRoleNotExistingChamp(){
+        assertFalse(database.checkRoleOwnRoles(190, "top"));
+    }
+    
+    @Test
+    public void checkOwnRoleWithRole(){
+        assertTrue(database.checkRoleOwnRoles(8, "Role"));
+    }
+    
+    @Test
+    public void saveNewStatistic(){
+        String oldStat = database.getMatchStatistic("Vladimir", "Nunu & Willump");
+        database.setMatchStatistic("Vladimir", "Nunu & Willump", "50,80");
+        assertEquals("50,80", database.getMatchStatistic("Vladimir", "Nunu & Willump"));
+        database.setMatchStatistic("Vladimir", "Nunu & Willump", oldStat);
+        
+    }
+    
+    @Test
+    public void saveRole(){
+        database.setRolePlayed(database.getChampionName(79), "sup");
+        assertTrue(database.checkRoleOwnRoles(79, "sup"));
+        
     }
 }

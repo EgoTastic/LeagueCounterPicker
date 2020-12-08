@@ -12,9 +12,16 @@ import java.util.ArrayList;
  * @author miikakoskela
  */
 
+/**
+ * Class that handles SQL database
+ */
 public class DatabaseIF {
     private Connection database;
     
+    
+    /**
+     * Class constructor
+     */
     public DatabaseIF() {
         try {
             this.database = DriverManager.getConnection("jdbc:sqlite:Picks.db");
@@ -23,6 +30,11 @@ public class DatabaseIF {
         }               
     }
     
+    /**
+     * Checks if the database that the program is connected to, is suitable for the program
+     * 
+     * @return boolean of wether the program can continue or not
+     */
     public boolean checkIfDatabaseExists() {
         
         boolean dbExists = false;
@@ -40,13 +52,22 @@ public class DatabaseIF {
         
     }
     
-    // Returns list of statistics for 1 champ against 5 champs from the list from users own table
+    /**
+     * Fetches the winrates for given champion against all the enemy champions from users own statistics
+     * 
+     * @param enemyChampionList List of all enemy champions
+     * @param championToTest The champion ID that is being fetched from database
+     * 
+     * @see leaguecounter.database.DatabaseIF#parseStatement(ArrayList, int, String) 
+     * 
+     * @return ArrayList of all the win statistics given by the query
+     */
     public ArrayList<String> getWinRatesOwnStatistics(ArrayList<String> enemyChampionList, int championToTest) {
         ArrayList<String> winRates = new ArrayList<>();
         
         String statement = parseStatement(enemyChampionList, championToTest, "ownStatistics");
         
-        if (enemyChampionList.isEmpty() || statement.equals("Error")) {
+        if (statement.equals("Error")) {
             return winRates;
         }
         
@@ -66,14 +87,23 @@ public class DatabaseIF {
         return winRates;
     }
     
-    // Returns list of statistics for 1 champ against 5 champs from the list from global table
+    /**
+     * Fetches the winrates for given champion against all the enemy chamoions from global statistics
+     * 
+     * @param enemyChampionList List of all enemy champions
+     * @param championToTest The champion ID that is being fetched from database
+     * 
+     * @see leaguecounter.database.DatabaseIF#parseStatement(ArrayList, int, String) 
+     * 
+     * @return ArrayList of all the win statistics given by the query
+     */
     public ArrayList<Double> getWinRatesBaseStatistics(ArrayList<String> enemyChampionList, int championToTest) {
          
         ArrayList<Double> winRates = new ArrayList<>();
         
         String statement = parseStatement(enemyChampionList, championToTest, "baseStatistics");
         
-        if (enemyChampionList.isEmpty() || statement.equals("Error")) {
+        if (statement.equals("Error")) {
             return winRates;
         }
         
@@ -91,7 +121,13 @@ public class DatabaseIF {
         return winRates;
     }
     
-    // Returns champion name based on given id number
+    /**
+     * Returns the champion name the given ID corresponds to.
+     * If the champion is 0, returns "Error"
+     * 
+     * @param championNumber ID of the champion
+     * @return Name of the champion
+     */
     public String getChampionName(int championNumber) {
         
         if (championNumber == 0) {
@@ -113,7 +149,11 @@ public class DatabaseIF {
         
     }
     
-    // Returns list of all champions
+    /**
+     * Fetches the list of all champions from the database
+     * 
+     * @return ArrayList of all champion names
+     */
     public ArrayList<String> getChampionList() {
         
         ArrayList<String> championList = new ArrayList<>();
@@ -129,12 +169,20 @@ public class DatabaseIF {
         return championList;
     }
     
-    // Returns champion-on-champion stats based on user statistics
-    public String getMatchStatistic(String champ, String pick) {
+    /**
+     * 
+     * Fetches the statistic from the database for the given champion matchup
+     * 
+     * @param enemyChampion Enemy champion to check
+     * @param pick Champion to check enemy champion against
+     * 
+     * @return Match statistics for the query in string form "won,total"
+     */
+    public String getMatchStatistic(String enemyChampion, String pick) {
         
         String matchStatistic = "";
         try {
-            PreparedStatement sqlstatement = this.database.prepareStatement("SELECT \"" + champ + "\" FROM ownStatistics WHERE champion = '" + pick + "'");
+            PreparedStatement sqlstatement = this.database.prepareStatement("SELECT \"" + enemyChampion + "\" FROM ownStatistics WHERE champion = '" + pick + "'");
             ResultSet r = sqlstatement.executeQuery();
             if (r.next()) {
                 matchStatistic = r.getString(1);
@@ -146,7 +194,14 @@ public class DatabaseIF {
         return matchStatistic;
     }
       
-    // Updates champion-on-champion stats with new statistics
+    /**
+     * 
+     * Sets new statistic to the database for the given champion matchup
+     * 
+     * @param champ Enemy champion to check
+     * @param pick Champion to check enemy champion against
+     * @param newStat new statistic to write to the database
+     */
     public void setMatchStatistic(String champ, String pick, String newStat) {
         
         try {
@@ -157,13 +212,36 @@ public class DatabaseIF {
         }
     }
     
-    // Creates the SQL statement for finding statistics
-    public String parseStatement(ArrayList<String> champs, int pick, String table) {
+    /**
+     * Sets that the champion has been played by the user in the given role
+     * 
+     * @param champion Champion that the user played as
+     * @param role Role that the user played as
+     */
+    public void setRolePlayed(String champion, String role) {
+        try {
+            PreparedStatement sqlstatement = this.database.prepareStatement("UPDATE ownRoles SET " + role + " = 1 WHERE champion = \"" + champion + "\"");
+            sqlstatement.execute();
+        } catch (SQLException error) {
+            System.out.println("Error setRolePlayed: " + error.getMessage());
+        }
+    }
+    
+    /**
+     * Creates the SQL statement to use for SQL query
+     * 
+     * @param enemyChampions champions which columns to fetch
+     * @param pick row of the champion to check
+     * @param table information on which table to check from
+     * 
+     * @return String of the SQL statement
+     */
+    public String parseStatement(ArrayList<String> enemyChampions, int pick, String table) {
         
         String sqlstatement = "";
         boolean first = true;
         
-        for (String champion:champs) {
+        for (String champion:enemyChampions) {
             
             if (champion.equals("Champion")) {
                 continue;
@@ -185,7 +263,14 @@ public class DatabaseIF {
         
     }
     
-    // Checks if the champion is suitable for picked role from base roles
+    /**
+     * Checks if the champion is suitable for the given role from the base roles
+     * 
+     * @param championID Champion to check
+     * @param role Role to check
+     * 
+     * @return boolean wether the role fits the champion
+     */
     public boolean checkRoleBaseRoles(int championID, String role) {
         
         if (role.equals("Role")) {
@@ -207,6 +292,34 @@ public class DatabaseIF {
         
         return false;
         
+    }
+    
+    /**
+     * Checks if the champion suitable for the given role from the own roles
+     * 
+     * @param championID Champion to check
+     * @param role Role to check
+     * 
+     * @return boolean wether the role fits the champion
+     */
+    public boolean checkRoleOwnRoles(int championID, String role) {
+        if (role.equals("Role")) {
+            return true;
+        }
+        
+        try {
+            PreparedStatement sqlstatement = this.database.prepareStatement("SELECT " + role + " FROM ownRoles WHERE id = " + championID);
+            ResultSet result = sqlstatement.executeQuery();
+            if (result.next()) {
+                if (result.getInt(1) == 1) {
+                    return true;
+                }
+            }
+        } catch (SQLException error) {
+            System.out.println("Error checkRoleBaseRoles: " + error.getMessage());
+        }
+        
+        return false;
     }
       
 }

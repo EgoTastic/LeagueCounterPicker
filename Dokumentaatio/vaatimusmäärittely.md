@@ -9,10 +9,10 @@ Sovellus voi ehdottaa vaihtoehtoja myös ennalta määriteltyjen tietojen mukaan
 ## Toiminnallisuus  
   
 Käyttäjä voi:
-* Syöttää ottelussaan käyttämänsä hahmon ja vastustajan joukkueen hahmot ja tallentaa pelin (tehty mahdollisia bugeja)
+* Syöttää ottelussaan käyttämänsä hahmon ja vastustajan joukkueen hahmot ja tallentaa pelin (tehty)
 * Ennen ottelua voi syöttää vastajoukkueen jo valitut hahmot ja niiden perusteella saada ehdotus omalle valinnalle (tehty)
-* Syöttäessä tietoja käyttäjä voi määrittää, missä roolissa pelasi hahmoa
-* Hakiessa ehdotusta käyttäjä voi määrittää, mitä roolia on pelaamassa (tehty, toimii vain global/base statistiikan pohjalta, eli ei vielä personal pickin osalta)
+* Syöttäessä tietoja käyttäjä voi määrittää, missä roolissa pelasi hahmoa (tehty)
+* Hakiessa ehdotusta käyttäjä voi määrittää, mitä roolia on pelaamassa (tehty)
 * Ehdotusta hakiessa käyttäjä voi saada myös ehdotuksen yleisiin tilastoihin perustuen, jos näin haluaa esimerkiksi ohjelmaa alussa käyttäen kun tallennettuja pelejä ei vielä ole useaa (tehty)
 
 

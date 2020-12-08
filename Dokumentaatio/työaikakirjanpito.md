@@ -12,4 +12,7 @@
 | 26.11. | 6 | Tietokannan baseStatistics päivittämistä käsin, roolipuolen toteutuksen suunnittelua |
 | 27.11. | 5 | Rooli-ominaisuuden luonti osittain, toimii baseStatisticin kanssa. Virhetilanteita kirjoitettu selkeämmiksi. Testejä kirjoitettu lisää. Korjattu kriittinen virhe resultSetin läpikäynnissä |
 | 28.11. | 6 | Metodien ja muuttujien kokonaisvaltainen uudelleen nimeäminen selkeyden vuoksi. Testejä lisää. Sekvenssikaavio luotu, release valmis jar luotu. Dokumentaatio päivitetty |
-| yht | 59 ||
+| 2.12. | 3 | Toiminnallisuuden jatkamista, bugien korjailua, javaDOC kirjoittelua |
+| 4.12. | 2 | DataHandler luokan jakaminen kahteen osaan (varsinainen DatabaseIF luokan kanssa keskusteleva luokka ja erillinen aputyökaluluokka), javaDocin korjailua, testien jakamista aikaisemman luokkajaon perusteella |
+| 8.12. | 3 | Palautteen mukaisesti lisätty tarkistin duplikaattihahmojen osalta, dokumentaatio loppuun |
+| yht | 67 ||

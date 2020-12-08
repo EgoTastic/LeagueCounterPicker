@@ -24,6 +24,10 @@ public class DataHandlerTest{
     public void BaseCounterZyra(){
         ArrayList<String> enemyChampionList = new ArrayList<>();
         enemyChampionList.add("Zyra");
+        enemyChampionList.add("Champion");
+        enemyChampionList.add("Champion");
+        enemyChampionList.add("Champion");
+        enemyChampionList.add("Champion");
         String retValue = handler.getBaseRecommendation(enemyChampionList, "Role");
         assertEquals("Alistar with 53.80%", retValue);
     }
@@ -31,8 +35,13 @@ public class DataHandlerTest{
     @Test
     public void BaseCounterWithEmptyList(){
         ArrayList<String> enemyChampionList = new ArrayList<>();
+        enemyChampionList.add("Champion");
+        enemyChampionList.add("Champion");
+        enemyChampionList.add("Champion");
+        enemyChampionList.add("Champion");
+        enemyChampionList.add("Champion");
         String retValue = handler.getBaseRecommendation(enemyChampionList, "Role");
-        assertEquals("No champs selected", retValue);
+        assertEquals("No champions selected!", retValue);
     }
     
     @Test
@@ -45,22 +54,59 @@ public class DataHandlerTest{
     public void persCounterAkali(){
         ArrayList<String> enemyChampionList = new ArrayList<>();
         enemyChampionList.add("Akali");
-        String result = handler.getPersonalRecommendation(enemyChampionList);
-        assertEquals("Blitzcrank with 100.00%", result);
+        enemyChampionList.add("Champion");
+        enemyChampionList.add("Champion");
+        enemyChampionList.add("Champion");
+        enemyChampionList.add("Champion");
+        String result = handler.getPersonalRecommendation(enemyChampionList, "Top");
+        assertEquals("Fiora with 100.00%", result);
     }
     
     @Test
     public void persCounterWithEmptyList(){
         ArrayList<String> enemyChampionList = new ArrayList<>();
-        String retValue = handler.getPersonalRecommendation(enemyChampionList);
-        assertEquals("No champs selected", retValue);        
+        enemyChampionList.add("Champion");
+        enemyChampionList.add("Champion");
+        enemyChampionList.add("Champion");
+        enemyChampionList.add("Champion");
+        enemyChampionList.add("Champion");
+        String retValue = handler.getPersonalRecommendation(enemyChampionList, "ADC");
+        assertEquals("No champions selected!", retValue);        
+    }
+    
+    @Test
+    public void perCounterWithDuplicates(){
+        ArrayList<String> enemyChampionList = new ArrayList<>();
+        enemyChampionList.add("Champion");
+        enemyChampionList.add("Champion");
+        enemyChampionList.add("Champion");
+        enemyChampionList.add("Akali");
+        enemyChampionList.add("Akali");
+        String retValue = handler.getPersonalRecommendation(enemyChampionList, "ADC");
+        assertEquals("No duplicate champions!", retValue);
+    }
+    
+    @Test
+    public void baseCounterWithDuplicates(){
+        ArrayList<String> enemyChampionList = new ArrayList<>();
+        enemyChampionList.add("Champion");
+        enemyChampionList.add("Champion");
+        enemyChampionList.add("Champion");
+        enemyChampionList.add("Akali");
+        enemyChampionList.add("Akali");
+        String retValue = handler.getBaseRecommendation(enemyChampionList, "ADC");
+        assertEquals("No duplicate champions!", retValue);
     }
     
     @Test
     public void persCounterWithNoExistingStats(){
         ArrayList<String> enemyChampionList = new ArrayList<>();
         enemyChampionList.add("Ezreal");
-        String result = handler.getPersonalRecommendation(enemyChampionList);
+        enemyChampionList.add("Champion");
+        enemyChampionList.add("Champion");
+        enemyChampionList.add("Champion");
+        enemyChampionList.add("Champion");
+        String result = handler.getPersonalRecommendation(enemyChampionList, "Middle");
         assertEquals("No statistics", result);
     }
     
@@ -72,9 +118,10 @@ public class DataHandlerTest{
         champs.add("Annie");
         champs.add("Ezreal");
         champs.add("Lux");       
-        boolean result = handler.saveMatch(true, champs, "Champion");
+        boolean result = handler.saveMatch(true, champs, "Champion", "Middle");
         assertFalse(result);
     }
+    
     
     @Test
     public void saveWithWrongList(){
@@ -84,39 +131,8 @@ public class DataHandlerTest{
         champs.add("Annie");
         champs.add("Ezreal");
         champs.add("Champion");
-        boolean result = handler.saveMatch(true, champs, "Aatrox");
+        boolean result = handler.saveMatch(true, champs, "Aatrox", "Middle");
         assertFalse(result);
-    }
-    
-    @Test
-    public void countingNewStatVictory(){
-        String newStat = handler.countNewStatistic(true, "1,1");
-        assertEquals("2,2", newStat);
-    }
-    
-    @Test
-    public void countingNewStatDefeat(){
-        String newStat = handler.countNewStatistic(false, "1,1");
-        assertEquals("1,2", newStat);
-    }
-    
-    @Test
-    public void correctTranformFromStringToDouble(){
-        
-        ArrayList<String> stringWin = new ArrayList<>();
-        stringWin.add("2,4");
-        ArrayList<Double> percents = handler.transformMatchStatisticsToWinRates(stringWin);
-        
-        assertTrue(0.5 == percents.get(0));
-    }
-    
-    @Test
-    public void transformReturnsEmptyList(){
-        ArrayList<String> stringWin = new ArrayList<>();
-        stringWin.add("0,0");
-        ArrayList<Double> percents = handler.transformMatchStatisticsToWinRates(stringWin);
-        
-        assertTrue(percents.isEmpty());
     }
     
     @Test
@@ -134,50 +150,8 @@ public class DataHandlerTest{
     }
     
     @Test
-    public void countWinRateWithCorrectInput(){
-        ArrayList<Double> winRates = new ArrayList<>();
-        winRates.add(0.0);
-        winRates.add(1.0);
-        double winRate = handler.countWinRate(winRates);
-        assertTrue(0.5 == winRate);
+    public void databaseExists(){
+        assertTrue(handler.connectionToDatabase());
     }
-    
-    @Test
-    public void countWinRateWithIncorrectInput(){
-        ArrayList<Double> winRates = new ArrayList<>();
-        double winRate = handler.countWinRate(winRates);
-        assertTrue(-1 == winRate);
-    }
-    
-    @Test
-    public void shortenTop(){
-        assertEquals("top", handler.shortenRole("Top"));
-    }
-    
-    @Test
-    public void shortenJungle() {
-        assertEquals("jgl", handler.shortenRole("Jungle"));
-    }
-    
-    @Test
-    public void shortenMiddle() {
-        assertEquals("mid", handler.shortenRole("Middle"));
-    }
-    
-    @Test
-    public void shortenADC() {
-        assertEquals("adc", handler.shortenRole("ADC"));
-    }
-    
-    @Test
-    public void shortenSupport() {
-        assertEquals("sup", handler.shortenRole("Support"));
-    }
-    
-    @Test
-    public void shortenRolewithRole() {
-        assertEquals("Role", handler.shortenRole("Role"));
-    }
-    
     
 }

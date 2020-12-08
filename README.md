@@ -12,6 +12,23 @@ Sovelluksen avulla käyttäjän on mahdollista pitää kirjaa omasta suoriutumis
 
 ## Releaset
 
+### Viikko 6
+
+  [Suorituskelpoinen jar-tiedosto](https://github.com/EgoTastic/LeagueCounterPicker/releases/viikko6)
+
+* Edellisen viikon tavoitteista toteutunut:
+  * JavaDOC aloitettu
+  * Rooliin perustuvat ominaisuudet oman statistiikan käsittelyssä
+  * Rooli ominaisuudet tallentamisessa
+  * Muutama virhe listitty
+* DataHandler luokka jaettu kahtia, uusi luokka sisältää kaikki erilliset apumetodit
+* Uusi testiluokka vastaamaan DataHandler jakoa
+* Lisätty tarkistin duplikaattivalinnoista varoittamaan
+* Lopullisen version tavoitteet
+  * JavaDOC loppuun
+  * baseStatistics tietokannan täydentäminen loppuun
+  * Testejä mahdollisesti lisää (Pitää tutkia miten sql tietokannan muutokset peruutetaan testeissä)
+
 ### Viikko 5
 
   [Suorituskelpoinen jar-tiedosto](https://github.com/EgoTastic/LeagueCounterPicker/releases/viikko5)
