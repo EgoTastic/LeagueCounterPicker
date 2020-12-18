@@ -23,7 +23,7 @@ Pelin jälkeen käyttäjä voi tallentaa vastapuolen joukkueen hahmot, oman hahm
   
 ### Loppupalautus
 
-  [Suorituskelpoinen jar-tiedosto](https://github.com/EgoTastic/LeagueCounterPicker/releases/loppupalautus)
+  [Suorituskelpoinen jar-tiedosto ja tietokantatiedostot](https://github.com/EgoTastic/LeagueCounterPicker/releases/loppupalautus)
 
   * Edellisen viikon tavoitteista toteutunut:
     * JavaDOC kirjoitettu loppuun
@@ -128,7 +128,7 @@ mvn compile exec:java -Dexec.mainClass=leaguecounter.ui.Main
 
 ### Testaus
 
-**HUOM! Käytä oikeata picks.db tiedostoa testejä varten (täytetty etukäteen, eli löytyy "personaalista" dataa jotta testit olisivat fiksumpia) Löytyy valmiiksi ohjelmasta sekä varmuudeksi repon juuresta picks_tests.db**
+**HUOM! Käytä oikeata picks.db tiedostoa testejä varten (täytetty etukäteen, eli löytyy "personaalista" dataa jotta testit olisivat fiksumpia) Löytyy valmiiksi ohjelmasta sekä varmuudeksi repon juuresta picks_testeihin.db**
 
 Testit suoritetaan komennolla
 
@@ -154,13 +154,15 @@ mvn package
 
 Ohjelma löytyy tiedostosta _target/LeagueCounterPicker-1.0.jar_
 
-**HUOM! Siirrä Picks.db .jar tiedoston kanssa samaan hakemistoon, jotta ohjelma ei yritä luoda uutta tyhjää tietokantaa ja käyttää sitä**
+**HUOM! Siirrä Picks.db .jar tiedoston kanssa samaan hakemistoon, jotta ohjelma ei yritä luoda uutta tyhjää tietokantaa ja käyttää sitä (Tämä Picks.db sisältää etukäteen muutaman syötetyn henkilökohtaisen datan testailua varten)**
 
 Siirron voit toteuttaa esimerkiksi suorittamalla:
 
 ```
 cp Picks.db target/Picks.db
 ```
+
+Vaihtoehtoisesti siirrä repon juuressa oleva Picks_uusipohja.db kyseiseen kansioon, jos haluat täysin puhtaan käyttövalmiin tietokannan  
 
 .jar tiedoston voit ajaa kommennolla
 
