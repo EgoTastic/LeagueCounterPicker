@@ -17,6 +17,7 @@ import java.util.ArrayList;
  */
 public class DatabaseIF {
     private Connection database;
+    private PreparedStatement sqlstatement;
     
     
     /**
@@ -73,13 +74,13 @@ public class DatabaseIF {
         
         
         try {
-            PreparedStatement sqlstatement = this.database.prepareStatement(statement);
-            ResultSet result = sqlstatement.executeQuery();
+            this.sqlstatement = this.database.prepareStatement(statement);
+            ResultSet result = this.sqlstatement.executeQuery();
             
             for (int i = 1; i <= result.getMetaData().getColumnCount(); i++) {
                 winRates.add(result.getString(i));
             }
-            sqlstatement.close();
+            this.sqlstatement.close();
             
         } catch (SQLException error) {
             System.out.println("Error getWinRatesOwnStatistics: " + error.getMessage());
@@ -109,13 +110,13 @@ public class DatabaseIF {
         }
         
         try {
-            PreparedStatement sqlstatement = this.database.prepareStatement(statement); 
-            ResultSet result = sqlstatement.executeQuery();
+            this.sqlstatement = this.database.prepareStatement(statement); 
+            ResultSet result = this.sqlstatement.executeQuery();
             
             for (int i = 1; i <= result.getMetaData().getColumnCount(); i++) {
                 winRates.add(result.getDouble(i));
             }
-            sqlstatement.close();
+            this.sqlstatement.close();
         } catch (SQLException error) {
             System.out.println("Error getWinRatesBaseStatistics: " + error.getMessage());
         }
@@ -138,12 +139,12 @@ public class DatabaseIF {
         }
         
         try {
-            PreparedStatement sqlstatement = this.database.prepareStatement("SELECT champion FROM baseStatistics where id = " + championNumber);
-            ResultSet result = sqlstatement.executeQuery();
+            this.sqlstatement = this.database.prepareStatement("SELECT champion FROM baseStatistics where id = " + championNumber);
+            ResultSet result = this.sqlstatement.executeQuery();
             if (result.next()) {
                 name = result.getString(1);
             } 
-            sqlstatement.close();
+            this.sqlstatement.close();
         } catch (SQLException error) {
             System.out.println("Error getChampionName: " + error.getMessage());
         }
@@ -161,12 +162,12 @@ public class DatabaseIF {
         
         ArrayList<String> championList = new ArrayList<>();
         try {
-            PreparedStatement sqlstatement = this.database.prepareStatement("SELECT champion FROM baseStatistics");
+            this.sqlstatement = this.database.prepareStatement("SELECT champion FROM baseStatistics");
             ResultSet result = sqlstatement.executeQuery();
             while (result.next()) {
                 championList.add(result.getString("champion"));
             }
-            sqlstatement.close();
+            this.sqlstatement.close();
         } catch (SQLException error) {
             System.out.println("Error getChampionList: " + error.getMessage());
         }
@@ -186,12 +187,12 @@ public class DatabaseIF {
         
         String matchStatistic = "";
         try {
-            PreparedStatement sqlstatement = this.database.prepareStatement("SELECT \"" + enemyChampion + "\" FROM ownStatistics WHERE champion = '" + pick + "'");
-            ResultSet result = sqlstatement.executeQuery();
+            this.sqlstatement = this.database.prepareStatement("SELECT \"" + enemyChampion + "\" FROM ownStatistics WHERE champion = '" + pick + "'");
+            ResultSet result = this.sqlstatement.executeQuery();
             if (result.next()) {
                 matchStatistic = result.getString(1);
             }
-            sqlstatement.close();
+            this.sqlstatement.close();
         } catch (SQLException error) {
             System.out.println("Error getMatchStatistic: " + error.getMessage());
         }
@@ -209,9 +210,9 @@ public class DatabaseIF {
     public void setMatchStatistic(String champ, String pick, String newStat) {
         
         try {
-            PreparedStatement sqlstatement = this.database.prepareStatement("UPDATE ownStatistics SET \"" + champ + "\" = \"" + newStat + "\" WHERE champion = '" + pick + "'");
-            sqlstatement.execute();
-            sqlstatement.close();
+            this.sqlstatement = this.database.prepareStatement("UPDATE ownStatistics SET \"" + champ + "\" = \"" + newStat + "\" WHERE champion = '" + pick + "'");
+            this.sqlstatement.execute();
+            this.sqlstatement.close();
         } catch (SQLException error) {
             System.out.println("Error setMatchStatistic: " + error.getMessage());
         }
@@ -226,9 +227,9 @@ public class DatabaseIF {
      */
     public void setRolePlayed(String champion, String role, String stat) {
         try {
-            PreparedStatement sqlstatement = this.database.prepareStatement("UPDATE ownRoles SET " + role + " = " + stat + " WHERE champion = \"" + champion + "\"");
-            sqlstatement.execute();
-            sqlstatement.close();
+            this.sqlstatement = this.database.prepareStatement("UPDATE ownRoles SET " + role + " = " + stat + " WHERE champion = \"" + champion + "\"");
+            this.sqlstatement.execute();
+            this.sqlstatement.close();
         } catch (SQLException error) {
             System.out.println("Error setRolePlayed: " + error.getMessage());
         }
@@ -285,15 +286,15 @@ public class DatabaseIF {
         }
        
         try {
-            PreparedStatement sqlstatement = this.database.prepareStatement("SELECT " + role + " FROM baseRoles WHERE id = " + championID);
+            this.sqlstatement = this.database.prepareStatement("SELECT " + role + " FROM baseRoles WHERE id = " + championID);
             ResultSet result = sqlstatement.executeQuery();
             if (result.next()) {
                 if (result.getInt(1) == 1) {
-                    sqlstatement.close();
+                    this.sqlstatement.close();
                     return true;
                 } 
             }
-            
+            this.sqlstatement.close();
         } catch (SQLException error) {
             System.out.println("Error checkRoleBaseRoles: " + error.getMessage());
         }
@@ -316,14 +317,15 @@ public class DatabaseIF {
         }
         
         try {
-            PreparedStatement sqlstatement = this.database.prepareStatement("SELECT " + role + " FROM ownRoles WHERE id = " + championID);
-            ResultSet result = sqlstatement.executeQuery();
+            this.sqlstatement = this.database.prepareStatement("SELECT " + role + " FROM ownRoles WHERE id = " + championID);
+            ResultSet result = this.sqlstatement.executeQuery();
             if (result.next()) {
                 if (result.getInt(1) == 1) {
-                    sqlstatement.close();
+                    this.sqlstatement.close();
                     return true;
                 }
             }
+            this.sqlstatement.close();
         } catch (SQLException error) {
             System.out.println("Error checkRoleBaseRoles: " + error.getMessage());
         }
@@ -338,15 +340,15 @@ public class DatabaseIF {
         ArrayList<String> championList = getChampionList();
         
         try {
-            PreparedStatement sqlstatement;
+            
             for (String champion : championList) {    
-                sqlstatement = this.database.prepareStatement("UPDATE ownStatistics SET \"" + champion + "\" = \"0,0\"");
-                sqlstatement.execute();
-                sqlstatement.close();
+                this.sqlstatement = this.database.prepareStatement("UPDATE ownStatistics SET \"" + champion + "\" = \"0,0\"");
+                this.sqlstatement.execute();
+                this.sqlstatement.close();
             }
-            sqlstatement = this.database.prepareStatement("UPDATE ownRoles SET top = 0, jgl = 0, mid = 0, adc = 0, sup = 0");
-            sqlstatement.execute();
-            sqlstatement.close();
+            this.sqlstatement = this.database.prepareStatement("UPDATE ownRoles SET top = 0, jgl = 0, mid = 0, adc = 0, sup = 0");
+            this.sqlstatement.execute();
+            this.sqlstatement.close();
         } catch (SQLException error) {
             System.out.println("Error resetAllPersonalStatistics: " + error.getMessage());
         }
