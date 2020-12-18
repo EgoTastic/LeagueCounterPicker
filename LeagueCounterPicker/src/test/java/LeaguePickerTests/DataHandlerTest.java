@@ -11,17 +11,17 @@ import org.junit.jupiter.api.BeforeEach;
  * @author miikakoskela
  */
 
-public class DataHandlerTest{
+public class DataHandlerTest {
     
     private DataHandler handler;
        
     @BeforeEach
-    public void setUp(){
+    public void setUp() {
         handler = new DataHandler();
     }
     
     @Test
-    public void BaseCounterZyra(){
+    public void BaseCounterZyra() {
         ArrayList<String> enemyChampionList = new ArrayList<>();
         enemyChampionList.add("Zyra");
         enemyChampionList.add("Champion");
@@ -29,11 +29,11 @@ public class DataHandlerTest{
         enemyChampionList.add("Champion");
         enemyChampionList.add("Champion");
         String retValue = handler.getBaseRecommendation(enemyChampionList, "Role");
-        assertEquals("Alistar with 53.80%", retValue);
+        assertEquals("Nami with 58.60%", retValue);
     }
     
     @Test
-    public void BaseCounterWithEmptyList(){
+    public void BaseCounterWithEmptyList() {
         ArrayList<String> enemyChampionList = new ArrayList<>();
         enemyChampionList.add("Champion");
         enemyChampionList.add("Champion");
@@ -45,13 +45,13 @@ public class DataHandlerTest{
     }
     
     @Test
-    public void listChampionsRightAmount(){
+    public void listChampionsRightAmount() {
         ArrayList<String> champs = handler.listChampions();
         assertTrue(champs.size() == 153);
     }
     
     @Test
-    public void persCounterAkali(){
+    public void persCounterAkali() {
         ArrayList<String> enemyChampionList = new ArrayList<>();
         enemyChampionList.add("Akali");
         enemyChampionList.add("Champion");
@@ -63,7 +63,7 @@ public class DataHandlerTest{
     }
     
     @Test
-    public void persCounterWithEmptyList(){
+    public void persCounterWithEmptyList() {
         ArrayList<String> enemyChampionList = new ArrayList<>();
         enemyChampionList.add("Champion");
         enemyChampionList.add("Champion");
@@ -75,7 +75,7 @@ public class DataHandlerTest{
     }
     
     @Test
-    public void perCounterWithDuplicates(){
+    public void perCounterWithDuplicates() {
         ArrayList<String> enemyChampionList = new ArrayList<>();
         enemyChampionList.add("Champion");
         enemyChampionList.add("Champion");
@@ -87,7 +87,7 @@ public class DataHandlerTest{
     }
     
     @Test
-    public void baseCounterWithDuplicates(){
+    public void baseCounterWithDuplicates() {
         ArrayList<String> enemyChampionList = new ArrayList<>();
         enemyChampionList.add("Champion");
         enemyChampionList.add("Champion");
@@ -99,7 +99,7 @@ public class DataHandlerTest{
     }
     
     @Test
-    public void persCounterWithNoExistingStats(){
+    public void persCounterWithNoExistingStats() {
         ArrayList<String> enemyChampionList = new ArrayList<>();
         enemyChampionList.add("Ezreal");
         enemyChampionList.add("Champion");
@@ -111,7 +111,7 @@ public class DataHandlerTest{
     }
     
     @Test
-    public void saveWithWrongPick(){
+    public void saveWithWrongPick() {
         ArrayList<String> champs = new ArrayList<>();
         champs.add("Akali");
         champs.add("Ahri");
@@ -124,7 +124,7 @@ public class DataHandlerTest{
     
     
     @Test
-    public void saveWithWrongList(){
+    public void saveWithWrongList() {
         ArrayList<String> champs = new ArrayList<>();
         champs.add("Akali");
         champs.add("Ahri");
@@ -136,21 +136,21 @@ public class DataHandlerTest{
     }
     
     @Test
-    public void nameChampWithCorrectInput(){
+    public void nameChampWithCorrectInput() {
         String comp = handler.championNameAndStatistic(1, 0.6);
         
         assertEquals("Aatrox with 60.00%", comp);
     }
     
     @Test
-    public void nameChampWithIncorrectInput(){
+    public void nameChampWithIncorrectInput() {
         String comp = handler.championNameAndStatistic(0, 0.5);
         
         assertEquals("No statistics", comp);
     }
     
     @Test
-    public void databaseExists(){
+    public void databaseExists() {
         assertTrue(handler.connectionToDatabase());
     }
     

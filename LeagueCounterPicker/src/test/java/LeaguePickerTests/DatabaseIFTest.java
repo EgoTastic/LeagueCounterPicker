@@ -22,7 +22,7 @@ public class DatabaseIFTest {
     }
     
     @Test
-    public void parseStatementCorrectly(){
+    public void parseStatementCorrectly() {
         ArrayList<String> champs = new ArrayList<>();
         champs.add("Aatrox");
         champs.add("Blitzcrank");
@@ -34,7 +34,7 @@ public class DatabaseIFTest {
     }
     
     @Test
-    public void parseStatementWithWrongInput(){
+    public void parseStatementWithWrongInput() {
         ArrayList<String> champs = new ArrayList<>();
         champs.add("Champion");
         
@@ -73,67 +73,67 @@ public class DatabaseIFTest {
     }
     
     @Test
-    public void checkBaseRolesWithRole(){
+    public void checkBaseRolesWithRole() {
         assertTrue(database.checkRoleBaseRoles(9, "Role"));
     }
     
     @Test
-    public void getChampNameCorrect(){
+    public void getChampNameCorrect() {
         String name = database.getChampionName(1);
         assertTrue("Aatrox".equals(name));
     }
     
     @Test
-    public void getChampNameIncorrect0(){
+    public void getChampNameIncorrect0() {
         String name = database.getChampionName(0);
         assertTrue("Error".equals(name));
     }
     
     @Test
-    public void getChampNameIncorrect1000(){
+    public void getChampNameIncorrect1000() {
         String name = database.getChampionName(1000);
         assertTrue("Error".equals(name));
     }
     
     @Test
-    public void getMatchStatisticsCorrect(){
+    public void getMatchStatisticsCorrect() {
         String statistic = database.getMatchStatistic("Aatrox", "Blitzcrank");
         assertTrue("1,1".equals(statistic));
     }
     
     @Test
-    public void getMatchStatisticIncorrect(){
+    public void getMatchStatisticIncorrect() {
         String statistic = database.getMatchStatistic("Test", "Test2");
         assertTrue("".equals(statistic));
     }
     
     @Test
-    public void databaseExists(){
+    public void databaseExists() {
         assertTrue(database.checkIfDatabaseExists());
     }
     
     @Test
-    public void checkOwnRoleCorrect(){
+    public void checkOwnRoleCorrect() {
         assertTrue(database.checkRoleOwnRoles(13, "sup"));
     }
     
     @Test
-    public void checkOwnRoleIncorret(){
+    public void checkOwnRoleIncorret() {
         assertFalse(database.checkRoleOwnRoles(13, "adc"));
     }
     
     @Test
-    public void checkOwnRoleNotExistingChamp(){
+    public void checkOwnRoleNotExistingChamp() {
         assertFalse(database.checkRoleOwnRoles(190, "top"));
     }
     
     @Test
-    public void checkOwnRoleWithRole(){
+    public void checkOwnRoleWithRole() {
         assertTrue(database.checkRoleOwnRoles(8, "Role"));
     }
     
     @Test
-    public void saveNewStatistic(){
+    public void saveNewStatistic() {
         String oldStat = database.getMatchStatistic("Vladimir", "Nunu & Willump");
         database.setMatchStatistic("Vladimir", "Nunu & Willump", "50,80");
         assertEquals("50,80", database.getMatchStatistic("Vladimir", "Nunu & Willump"));
@@ -142,9 +142,10 @@ public class DatabaseIFTest {
     }
     
     @Test
-    public void saveRole(){
-        database.setRolePlayed(database.getChampionName(79), "sup");
+    public void saveRole() {
+        database.setRolePlayed(database.getChampionName(79), "sup", "1");
         assertTrue(database.checkRoleOwnRoles(79, "sup"));
+        database.setRolePlayed(database.getChampionName(79), "sup", "null");
         
     }
 }

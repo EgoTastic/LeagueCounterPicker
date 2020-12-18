@@ -20,6 +20,8 @@ import leaguecounter.domain.DataHandler;
  */
 public class UI extends Application{
     
+    private boolean secondClick;
+    
     /**
      * Constructs all UI elements and assignes functionality to button elements
      *
@@ -27,6 +29,8 @@ public class UI extends Application{
      */
     @Override
        public void start(Stage stage){
+           
+        secondClick = false;
         
         // Classes to use with program
         stage.setTitle("League Counter Picker");
@@ -139,7 +143,13 @@ public class UI extends Application{
         // Recommendation according to global statistics
         Label normRe = new Label("GAME STATISTICS:");
         Label normalRecommend = new Label("-----");
-        picker.getChildren().addAll(pick, yourRe, yourRecommend, normRe, normalRecommend);
+        
+        // Button to reset all statistics
+        Label emptyLabel = new Label (" ");
+        Label resetStats = new Label("Reset Statistics");
+        Button resetAllStats = new Button("Reset");
+        
+        picker.getChildren().addAll(pick, yourRe, yourRecommend, normRe, normalRecommend, emptyLabel, resetStats, resetAllStats);
 
         picker.setPadding(new Insets(10, 10, 10, 10));
         picker.setSpacing(5);
@@ -168,6 +178,8 @@ public class UI extends Application{
         
         // Save function, when match was won
         victory.setOnAction((event) -> {
+            this.secondClick = false;
+            emptyLabel.setText(" ");
                     ArrayList<String> enemyChampionList = new ArrayList<>();
                     enemyChampionList.add(topPick.getValue());
                     enemyChampionList.add(jglPick.getValue());
@@ -194,9 +206,23 @@ public class UI extends Application{
             
         });
         
+        resetAllStats.setOnAction((event) -> {
+            if(this.secondClick) {
+                handler.resetStats();
+                status.setText("Statistics reset"); 
+                emptyLabel.setText(" ");
+                this.secondClick = false;
+            } else {
+                emptyLabel.setText("Are you sure?");
+                this.secondClick = true;
+            }
+        });
+        
         
         // Save function, when match was lost
         defeat.setOnAction((event) -> {
+            emptyLabel.setText(" ");
+            this.secondClick = false;
             ArrayList<String> enemyChampionList = new ArrayList<>();
             enemyChampionList.add(topPick.getValue());
             enemyChampionList.add(jglPick.getValue());
@@ -227,7 +253,9 @@ public class UI extends Application{
         
         // Get recommendations for pick, based on user and global data
         pick.setOnAction((event) -> {
-            
+            status.setText("");
+            emptyLabel.setText(" ");
+            this.secondClick = false;
             ArrayList<String> enemyChampionList = new ArrayList<>();
             enemyChampionList.add(topPick.getValue());
             enemyChampionList.add(jglPick.getValue());

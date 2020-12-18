@@ -20,23 +20,25 @@ DataHandler vastaa varsinaisesta sovelluslogiikasta ja sisältää metodit:
 	* Konstruktori luokka, luodessa kutsuu DatabaseID konstruktoria
 * boolean connectionToDatabase()
 	* Palauttaa boolean arvon, onko Picks.db tietokanta oikeassa paikassa
-* boolean saveMatch(Boolean victoryStatus, ArrayList<String> enemyChampionList, String championPicked)
+* boolean saveMatch(Boolean victoryStatus, ArrayList<String> enemyChampionList, String championPicked, String role)
 	* Suorittaa tietokantaan tallentamisen
-	* Syötteenä tieto, päättyikö ottelu voittoon vai tappioon, lista vastapuolen hahmoista ja oma hahmovalinta
-* string getPersonalRecommendation(ArrayList<String> enemyChampionList)
+	* Syötteenä tieto, päättyikö ottelu voittoon vai tappioon, lista vastapuolen hahmoista, oma hahmovalinta ja rooli missä pelasi
+* String getPersonalRecommendation(ArrayList<String> enemyChampionList, String role)
 	* Laskee käyttäjän omien otteluiden tilastoista ehdotuksen hahmovalinnaksi
 	* Mikäli tietoja ei ole tarpeeksi, palauttaa "No statistics"
-	* Syötteenä lista vastapuolen hahmovalinnoista
-* string getBaseRecommendation(ArrayList<String> enemyChampionList, String role)
+	* Syötteenä lista vastapuolen hahmovalinnoista sekä mahdollinen ehdotuksen roolirajaus
+* String getBaseRecommendation(ArrayList<String> enemyChampionList, String role)
 	* Laskee yleisiin tilastoihin perustuvan ehdotuksen hahmovalinnaksi
 	* Ottaa huomioon käyttäjän roolin, mikäli sellainen valitaan
-	* Syötteenä lista vastapuolen hahmovalinnoista, sekä mahdollinen rooli
-* string ArrayList<String> listChampions()
+	* Syötteenä lista vastapuolen hahmovalinnoista, sekä mahdollinen ehdotuksen roolirajaus
+* String ArrayList<String> listChampions()
 	* Palauttaa graafiselle käyttöliittymälle listan kaikista hahmoista, jotta käyttöliittymä voi koostaa choiceBox valintojen vaihtoehdot
 * String championNameAndStatistic(int bestChampion, double bestWinRate)
 	* Muodostaa palautettavan String merkkijonon, joka sisältää hahmoehdotuksen hahmonimen sekä voittotodennäköisyyden
 	* Mikäli statistiikkaa ei ole löytynyt, palauttaa "No Statistics"
 	* Syötteenä hahmon ID sekä voittoprosentti
+* void resetStats()
+	* Tyhjentää kaikki henkilökohtaiset tilastot ja roolit
 	
 DataAssistingTools toimii DataHandler luokan apuluokkana, se sisältää metodeja, joilla vähennetään toistuvaa koodia ja jotka eivät itsessään kutsu DatabaseIF luokan metodeja
 
@@ -90,6 +92,11 @@ DatabaseIF vastaa SQL tietokannan käsittelystä
 	* Tarkistaa, onko hahmo tarkoitettu annettuun rooliin
 	* Palauttaa true, mikäli ehto toteutuu, tai roolia ei ole valittu
 	* Syötteenä testattava hahmo sekä rooli
+* void setRolePlayed(String champion, String role, String stat)
+	* Asettaa roolin pelatuksi annetulla hahmolla henkilökohtaisiin tilastoihin
+	* Syötteenä hahmo jonka kohdalle merkataan, rooli mikä merkataan pelatuksi ja merkki pelatusta (olemassa vain sitä varten että tämä voidaan perua testeissä fiksusti)
+* void resetAllPersonalStatistics()
+	* Tyhjentää kaikki henkilökohtaiset tilastot sekä roolit
 	
 <img src="https://raw.githubusercontent.com/EgoTastic/LeagueCounterPicker/main/Dokumentaatio/Kuvat/kuva3.png">
 
@@ -129,3 +136,9 @@ Nyt _getBaseRecommendation_ metodi kutsuu _DataAssistingTools_ luokan metodia _t
 "Victory" ja "Defeat" button elementtien tapahtumakäsittelijät kutsuvat _DataHandler_ luokan metodia _saveMatch_ antaen sille listan vastapuolen joukkueesta, käyttäjän oman hahmovalinnan sekä roolin missä pelasi. Metodi kutsuu _DataAssistingTools_ luokan _shortenRole_ metodia joka lyhentää roolin SQL käskyille sopivaan muotoon. Tämän jälkeen _DataHandler_ kutsuu luokan _DatabaseIF_ metodia _setRolePlayed_ joka asettaa käyttäjän omiin tilastoihin, että hän on pelannu hahmovalintaansa kyseisessä roolissa, jotta tätä tietoa voidaan käyttää tulevaisuudessa hahmoehdotuksiin. Nyt käydään koko vastustajien hahmolista läpi ja kutsutaan _DatabaseIF_ luokan _getMatchStatistic_ metodia, joka toteuttaa SQL haun, missä haetaan hahmo yhdistelmän vanha ottelutilasto. Tämän jälkeen _DataHandler_ kutsuu _DataAssistingTools_ luokan _countNewSatistic_ metodia jolle annetaan vanha tilasto ja tieto, oliko ottelu voitettu vai hävitty. Metodi palauttaa uuden tallennettavan tilaston. Lopuksi kutsutaan _DatabaseIF_ metodia _setMatchStatistic_ joka suorittaa tallennuksen tietokantaan uudella tilastolla. Metodi palauttaa _UI_ luokalle true tai false sen mukaan, oliko asennus onnistunut.
 
 <img src="https://raw.githubusercontent.com/EgoTastic/LeagueCounterPicker/main/Dokumentaatio/Kuvat/kuva6.png">
+
+### Tilastojen tyhjentäminen
+
+"Reset" button elementin tapahtumakäsittelijä kutsuu _DataHandler_ luokan metodia _resetStats_ joka puolestaan kutsuu _DatabaseIF_ luokan _resetAllStatistics_ metodia. Tämä metodi nollaa kaikki tilastot ja roolit käyttäjän omista tilastoista
+
+<img src="https://raw.githubusercontent.com/EgoTastic/LeagueCounterPicker/main/Dokumentaatio/Kuvat/kuva7.png">

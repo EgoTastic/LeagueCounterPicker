@@ -6,6 +6,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Random;
 
 /**
  *
@@ -217,10 +218,11 @@ public class DatabaseIF {
      * 
      * @param champion Champion that the user played as
      * @param role Role that the user played as
+     * @param stat The status to set
      */
-    public void setRolePlayed(String champion, String role) {
+    public void setRolePlayed(String champion, String role, String stat) {
         try {
-            PreparedStatement sqlstatement = this.database.prepareStatement("UPDATE ownRoles SET " + role + " = 1 WHERE champion = \"" + champion + "\"");
+            PreparedStatement sqlstatement = this.database.prepareStatement("UPDATE ownRoles SET " + role + " = " + stat + " WHERE champion = \"" + champion + "\"");
             sqlstatement.execute();
         } catch (SQLException error) {
             System.out.println("Error setRolePlayed: " + error.getMessage());
@@ -321,5 +323,25 @@ public class DatabaseIF {
         
         return false;
     }
+    
+    /**
+     * Resets all personal statistics in the database
+     */
+    public void resetAllPersonalStatistics() {
+        ArrayList<String> championList = getChampionList();
+        
+        try {
+            PreparedStatement sqlstatement;
+            for (String champion : championList) {    
+                sqlstatement = this.database.prepareStatement("UPDATE ownStatistics SET \"" + champion + "\" = \"0,0\"");
+                sqlstatement.execute();
+            }
+            sqlstatement = this.database.prepareStatement("UPDATE ownRoles SET top = 0, jgl = 0, mid = 0, adc = 0, sup = 0");
+            sqlstatement.execute();
+        } catch (SQLException error) {
+            System.out.println("Error resetAllPersonalStatistics: " + error.getMessage());
+        }
+    }
+    
       
 }

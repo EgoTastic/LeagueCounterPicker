@@ -44,7 +44,7 @@ public class DataHandler {
      * @param championPicked The Champion, that the player played as
      * @param role The role that the player was playing
      * 
-     * @see leaguecounter.database.DatabaseIF#setRolePlayed(String, String) 
+     * @see leaguecounter.database.DatabaseIF#setRolePlayed(String, String, String) 
      * @see leaguecounter.domain.DataAssistingTools#shortenRole(String)
      * @see leaguecounter.database.DatabaseIF#getMatchStatistic(String, String) 
      * @see leaguecounter.domain.DataAssistingTools#countNewStatistic(boolean, String)
@@ -59,7 +59,7 @@ public class DataHandler {
                 return false;
             }
         }
-        this.database.setRolePlayed(championPicked, DataAssistingTools.shortenRole(role));
+        this.database.setRolePlayed(championPicked, DataAssistingTools.shortenRole(role), "1");
         
         for (String enemyChampion:enemyChampionList) {                      
             String newStatToSave = DataAssistingTools.countNewStatistic(victoryStatus, this.database.getMatchStatistic(enemyChampion, championPicked));            
@@ -88,12 +88,12 @@ public class DataHandler {
      */
     public String getPersonalRecommendation(ArrayList<String> enemyChampionList, String role) {
         String errorStatus = DataAssistingTools.checkEnemyList(enemyChampionList);
-        if (errorStatus != "OK") {
+        if (!errorStatus.equals("OK")) {
             return errorStatus;
         } 
         
         double bestPercent = 0.0;
-        double comparePercent = 0.0;
+        double comparePercent;
         int bestChampion = 0;      
         
         for (int i = 1; i < 153; i++) {
@@ -132,7 +132,7 @@ public class DataHandler {
      */
     public String getBaseRecommendation(ArrayList<String> enemyChampionList, String role) {
         String errorStatus = DataAssistingTools.checkEnemyList(enemyChampionList);
-        if (errorStatus != "OK") {
+        if (!errorStatus.equals("OK")) {
             return errorStatus;
         }
         
@@ -195,5 +195,15 @@ public class DataHandler {
             return nameAndStatistic.replace(",", ".");
         }
     }
+    
+    /**
+     * Resets all personal statistics in the database
+     * 
+     * @see leaguecounter.database.DatabaseIF#resetAllPersonalStatistics()
+     */
+    public void resetStats() {       
+        database.resetAllPersonalStatistics();
+    }
+    
 
 }

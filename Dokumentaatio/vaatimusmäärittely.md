@@ -3,16 +3,18 @@
 ## Sovelluksen tarkoitus  
   
 Sovelluksen avulla käyttäjä saa tukea hahmon valintaan League of Legends -pelissä.  
-Sovellukseen talletetaan toteutuneiden pelien tuloksia ja niiden perusteella ohjelma suosittelee tuleviin peleihin hahmovalintoja tilanteen mukaan.  
-Sovellus voi ehdottaa vaihtoehtoja myös ennalta määriteltyjen tietojen mukaan, jotka eivät riipu käyttäjän syötteestä (2020 tilastot esimerkiksi).
+Sovellukseen talletetaan toteutuneiden pelien tuloksia ja niiden perusteella ohjelma suosittelee tuleviin peleihin hahmovalintoja.  
+Sovellus voi ehdottaa vaihtoehtoja myös etukäteen luotujen tietojen mukaan, jotka eivät riipu käyttäjän syötteestä.
   
 ## Toiminnallisuus  
   
 Käyttäjä voi:
-* Syöttää ottelussaan käyttämänsä hahmon ja vastustajan joukkueen hahmot ja tallentaa pelin (tehty)
-* Ennen ottelua voi syöttää vastajoukkueen jo valitut hahmot ja niiden perusteella saada ehdotus omalle valinnalle (tehty)
-* Syöttäessä tietoja käyttäjä voi määrittää, missä roolissa pelasi hahmoa (tehty)
-* Hakiessa ehdotusta käyttäjä voi määrittää, mitä roolia on pelaamassa (tehty)
-* Ehdotusta hakiessa käyttäjä voi saada myös ehdotuksen yleisiin tilastoihin perustuen, jos näin haluaa esimerkiksi ohjelmaa alussa käyttäen kun tallennettuja pelejä ei vielä ole useaa (tehty)
+* Syöttää ottelussaan käyttämänsä hahmon ja vastustajan joukkueen hahmot ja tallentaa pelin 
+* Ennen ottelua syöttää vastajoukkueen jo valitut hahmot ja niiden perusteella saada ehdotus omalle valinnalle
+* Hakiessa ehdotusta määrittää, mitä roolia on pelaamassa ja saada valittuun rooliin sopivimman hahmon
+* Ehdotusta hakiessa saada kaksi ehdotusta, toinen perustuu käyttäjän omaan dataan mikä kertyy pelejä tallettaessa, ja etukäteen olemassa olevaan dataan.
+* Tyhjentää oman datansa, jolloin kaikki omat tilastot ja roolivalinnat tyhjennetään (etukäteis tilastot pysyvät ennallaan)
 
-
+## Jatkokehitysideoita
+* Useamman ehdotuksen esittäminen tai "next" nappula jolla saa seuraavaksi parhaimman ehdotuksen
+* Automaattinen haku etukäteis datalle joko jonkin sivuston tai Riot-pelifirman omasta APIsta, tai sitten haku raa'asti html sivuilta

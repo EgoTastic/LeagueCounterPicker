@@ -2,16 +2,39 @@
 
 ## League Counter Picker
 
-Sovelluksen avulla käyttäjän on mahdollista pitää kirjaa omasta suoriutumisesta "League of Legends" pelissä. Sovelluksella käyttäjä voi saada vastapuolen joukkueen hahmovalintoihin perustuvan ehdotuksen omalle hahmovalinnalle. Ehdotus perustuu sekä yleiseen globaaleihin tilastoihin, sekä käyttäjän itse tuottamaan dataan, joka kertyy ajan myötä. Pelin jälkeen käyttäjä voi tallentaa vastapuolen joukkueen hahmot, oman hahmovallinnan sekä pelin lopputuloksen, jonka myötä omaan dataan perustuvaa tietokantaa muokataan kehittäen sovelluksen antamaa personaalista ehdotusta käyttäjälle.
+Sovelluksen avulla käyttäjän on mahdollista pitää kirjaa omasta suoriutumisesta "League of Legends" pelissä.  
+Sovelluksella käyttäjä voi saada vastapuolen joukkueen hahmovalintoihin perustuvan ehdotuksen omalle hahmovalinnalle. Ehdotus perustuu sekä ennakkotietoihin, sekä käyttäjän itse tuottamaan dataan, joka kertyy ajan myötä.  
+  
+Pelin jälkeen käyttäjä voi tallentaa vastapuolen joukkueen hahmot, oman hahmovallinnan sekä pelin lopputuloksen, jonka myötä omaan dataan perustuvaa tietokantaa muokataan kehittäen sovelluksen antamaa personaalista ehdotusta käyttäjälle.
 
 ### Dokumentaatio 
   
   [Vaatimusmäärittely](https://github.com/EgoTastic/LeagueCounterPicker/blob/main/Dokumentaatio/vaatimusmäärittely.md)  
+  
   [Työaikakirjanpito](https://github.com/EgoTastic/LeagueCounterPicker/blob/main/Dokumentaatio/työaikakirjanpito.md)  
+  
   [Arkkitehtuuri](https://github.com/EgoTastic/LeagueCounterPicker/blob/main/Dokumentaatio/arkkitehtuuri.md)  
+  
   [Käyttöohje](https://github.com/EgoTastic/LeagueCounterPicker/blob/main/Dokumentaatio/kayttoohje.md)  
+  
+  [Testausdokumentti](https://github.com/EgoTastic/LeagueCounterPicker/blob/main/Dokumentaatio/testaus.md)  
 
 ## Releaset
+  
+### Loppupalautus
+
+  [Suorituskelpoinen jar-tiedosto](https://github.com/EgoTastic/LeagueCounterPicker/releases/loppupalautus)
+
+  * Edellisen viikon tavoitteista toteutunut:
+    * JavaDOC kirjoitettu loppuun
+    * baseStatistics taulu täytetty (tällä hetkellä satunnaista dataa konseptin vuoksi, eli kaikkia 7000 datapistettä ei kirjoitettu käsin)
+  * Testausdokumentti luotu
+  * Testien rivikattavuus lopulta n. 80%
+  * Checkstyle virheitä: 0
+  * Oman statistiikan tyhjentämiseen luotu nappula
+  * Tulevaisuudessa voisi tehdä
+    * Next nappula seuraavalle vaihtoehdolle (tai mahdollisesti lista top 5 vaihtoehdoista?)
+    * Globaalin statistiikan päivittäminen suoraan netistä? Vaatii pidempää tutkimista eri sivustojen API -mahdollisuuksista jne.
 
 ### Viikko 6
 
@@ -105,6 +128,8 @@ mvn compile exec:java -Dexec.mainClass=leaguecounter.ui.Main
 
 ### Testaus
 
+**HUOM! Käytä oikeata picks.db tiedostoa testejä varten (täytetty etukäteen, eli löytyy "personaalista" dataa jotta testit olisivat fiksumpia) Löytyy valmiiksi ohjelmasta sekä varmuudeksi repon juuresta picks_tests.db**
+
 Testit suoritetaan komennolla
 
 ```
@@ -131,7 +156,7 @@ Ohjelma löytyy tiedostosta _target/LeagueCounterPicker-1.0.jar_
 
 **HUOM! Siirrä Picks.db .jar tiedoston kanssa samaan hakemistoon, jotta ohjelma ei yritä luoda uutta tyhjää tietokantaa ja käyttää sitä**
 
-Siirron voit toteuttaa suorittamalla:
+Siirron voit toteuttaa esimerkiksi suorittamalla:
 
 ```
 cp Picks.db target/Picks.db
@@ -153,3 +178,14 @@ mvn jxr:jxr checkstyle:checkstyle
 ```
 
 Checkstyle-raporttiin pääsee avaamalla tiedoston _target/site/checkstyle.html_
+
+
+### Javadoc
+
+Javadocin luominen toimii komennolla
+
+```
+mvn javavadoc:javadoc
+```
+
+Javadoc-dokumenttiin pääsee avamaalla tiedoston _target/site/apidocs/index.html_

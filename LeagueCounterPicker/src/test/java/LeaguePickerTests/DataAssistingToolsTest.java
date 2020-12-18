@@ -19,19 +19,19 @@ public class DataAssistingToolsTest {
     
     
     @Test
-    public void countingNewStatVictory(){
+    public void countingNewStatVictory() {
         String newStat = DataAssistingTools.countNewStatistic(true, "1,1");
         assertEquals("2,2", newStat);
     }
     
     @Test
-    public void countingNewStatDefeat(){
+    public void countingNewStatDefeat() {
         String newStat = DataAssistingTools.countNewStatistic(false, "1,1");
         assertEquals("1,2", newStat);
     }
     
     @Test
-    public void correctTranformFromStringToDouble(){
+    public void correctTranformFromStringToDouble() {
         
         ArrayList<String> stringWin = new ArrayList<>();
         stringWin.add("2,4");
@@ -41,7 +41,7 @@ public class DataAssistingToolsTest {
     }
     
     @Test
-    public void transformReturnsEmptyList(){
+    public void transformReturnsEmptyList() {
         ArrayList<String> stringWin = new ArrayList<>();
         stringWin.add("0,0");
         ArrayList<Double> percents = DataAssistingTools.transformMatchStatisticsToWinRates(stringWin);
@@ -50,7 +50,7 @@ public class DataAssistingToolsTest {
     }    
     
     @Test
-    public void countWinRateWithCorrectInput(){
+    public void countWinRateWithCorrectInput() {
         ArrayList<Double> winRates = new ArrayList<>();
         winRates.add(0.0);
         winRates.add(1.0);
@@ -59,14 +59,14 @@ public class DataAssistingToolsTest {
     }
     
     @Test
-    public void countWinRateWithIncorrectInput(){
+    public void countWinRateWithIncorrectInput() {
         ArrayList<Double> winRates = new ArrayList<>();
         double winRate = DataAssistingTools.countWinRate(winRates, true);
         assertTrue(0.0 == winRate);
     }
     
     @Test
-    public void shortenTop(){
+    public void shortenTop() {
         assertEquals("top", DataAssistingTools.shortenRole("Top"));
     }
     
@@ -96,7 +96,7 @@ public class DataAssistingToolsTest {
     }
     
     @Test
-    public void checkEnemyListWithEmpty(){
+    public void checkEnemyListWithEmpty() {
         ArrayList<String> enemyChampions = new ArrayList<>();
         enemyChampions.add("Champion");
         enemyChampions.add("Champion");
@@ -108,7 +108,7 @@ public class DataAssistingToolsTest {
     }
     
     @Test
-    public void checkEnemyListWithDuplicate(){
+    public void checkEnemyListWithDuplicate() {
         ArrayList<String> enemyChampions = new ArrayList<>();
         enemyChampions.add("Champion");
         enemyChampions.add("Akali");
@@ -120,7 +120,7 @@ public class DataAssistingToolsTest {
     }
     
     @Test
-    public void checkEnemyListWithGoodList(){
+    public void checkEnemyListWithGoodList() {
         ArrayList<String> enemyChampions = new ArrayList();
         enemyChampions.add("Champion");
         enemyChampions.add("Brand");

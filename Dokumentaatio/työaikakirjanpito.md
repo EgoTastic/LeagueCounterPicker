@@ -15,4 +15,6 @@
 | 2.12. | 3 | Toiminnallisuuden jatkamista, bugien korjailua, javaDOC kirjoittelua |
 | 4.12. | 2 | DataHandler luokan jakaminen kahteen osaan (varsinainen DatabaseIF luokan kanssa keskusteleva luokka ja erillinen aputyökaluluokka), javaDocin korjailua, testien jakamista aikaisemman luokkajaon perusteella |
 | 8.12. | 5 | Palautteen mukaisesti lisätty tarkistin duplikaattihahmojen osalta, dokumentaatio loppuun, käyttöohjeen luonti |
-| yht | 69 ||
+| 16.12. | 6 | Koodin loppuun hionti ja korjailu, loppulisen dokumentaation valmistelua |
+| 17.12. | 5 | Koodiparantelua, tietokannan alustaminen |
+| yht | 80 ||
