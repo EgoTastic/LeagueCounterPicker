@@ -49,7 +49,7 @@ Nappula määrittelee lasketaanko ottelu voitoksi vai tappioksi. Ohjelma ilmoitt
 
 _Reset_ nappulaa painamalla voit tyhjentää omat tietosi tietokannasta ja aloittaa keräämään tietoja alusta. Tyhjennys ei tapahdu heti, vaan sovellus kysyy onko käyttäjä varmaa tyhjentämisestä ja vaatii nappulan painamisen toisen kerran.
 
-### Tyhjentämisnapopula
+### Tyhjentämisnappula
 <img src="https://raw.githubusercontent.com/EgoTastic/LeagueCounterPicker/main/Dokumentaatio/Kuvat/kayttokuva7.png">
 
 ### Tyhjentämisnappula kun painaa ensimmäisen kerran
