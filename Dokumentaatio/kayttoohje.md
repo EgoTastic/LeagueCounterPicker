@@ -1,7 +1,7 @@
 # Käyttöohje
 
-Lataa tiedosto LeagueCounterPicker.jar sekä tietokantatiedosto Picks.db [Täältä](https://github.com/EgoTastic/LeagueCounterPicker/releases/loppupalautus)  
-Muista pitää tiedostot samassa hakemistossa!
+Lataa tiedosto LeagueCounterPicker.jar sekä tietokantatiedostot "Picks.db" ja "Picks_testeihin.db" [Täältä](https://github.com/EgoTastic/LeagueCounterPicker/releases/loppupalautus)  
+Ohjelma tarvitsee yhden _picks.db_ nimisen tietokanta tiedoston samaan kansioon missä ohjelma ajetaan. Releasen mukana tuleva Picks.db on tyhjä, uudelle käyttäjälle tarkoitettu tietokanta missä ei ole mitään käyttäjäkohtaista dataa vielä. _Picks_testeihin.db_ taas sisältää etukäteen hieman laitettua dataa, käytä tätä tiedostoa maven testejä varten (muuten testattaisiin tyhjää tietokantaa). Testaamista varten muista niemtä "Picks_testeihin.db" uudestaan nimelle "Picks.db"
 
 ## Ohjelman käynnistäminen
 

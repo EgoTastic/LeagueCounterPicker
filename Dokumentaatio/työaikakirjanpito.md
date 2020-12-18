@@ -17,4 +17,5 @@
 | 8.12. | 5 | Palautteen mukaisesti lisätty tarkistin duplikaattihahmojen osalta, dokumentaatio loppuun, käyttöohjeen luonti |
 | 16.12. | 6 | Koodin loppuun hionti ja korjailu, loppulisen dokumentaation valmistelua |
 | 17.12. | 5 | Koodiparantelua, tietokannan alustaminen |
-| yht | 80 ||
+| 18.12. | 4 | Loppudokumentaatio, testailu, release |
+| yht | 84 ||
