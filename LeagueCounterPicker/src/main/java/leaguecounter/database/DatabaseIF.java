@@ -28,7 +28,7 @@ public class DatabaseIF {
             this.database = DriverManager.getConnection("jdbc:sqlite:Picks.db");
         } catch (SQLException e) {
             System.out.println("Error DatabaseIF: " + e.getMessage());
-        }               
+        }
     }
     
     /**
@@ -80,10 +80,11 @@ public class DatabaseIF {
             for (int i = 1; i <= result.getMetaData().getColumnCount(); i++) {
                 winRates.add(result.getString(i));
             }
+            result.close();
             
         } catch (SQLException error) {
             System.out.println("Error getWinRatesOwnStatistics: " + error.getMessage());
-        }
+        } 
         
         return winRates;
     }
@@ -115,7 +116,7 @@ public class DatabaseIF {
             for (int i = 1; i <= result.getMetaData().getColumnCount(); i++) {
                 winRates.add(result.getDouble(i));
             }
-            
+            result.close();
         } catch (SQLException error) {
             System.out.println("Error getWinRatesBaseStatistics: " + error.getMessage());
         }
@@ -141,7 +142,7 @@ public class DatabaseIF {
             if (result.next()) {
                 return result.getString(1);
             } 
-            
+            result.close();
         } catch (SQLException error) {
             System.out.println("Error getChampionName: " + error.getMessage());
         }
@@ -164,6 +165,7 @@ public class DatabaseIF {
             while (result.next()) {
                 championList.add(result.getString("champion"));
             }
+            result.close();
         } catch (SQLException error) {
             System.out.println("Error getChampionList: " + error.getMessage());
         }
@@ -184,11 +186,11 @@ public class DatabaseIF {
         String matchStatistic = "";
         try {
             PreparedStatement sqlstatement = this.database.prepareStatement("SELECT \"" + enemyChampion + "\" FROM ownStatistics WHERE champion = '" + pick + "'");
-            ResultSet r = sqlstatement.executeQuery();
-            if (r.next()) {
-                matchStatistic = r.getString(1);
+            ResultSet result = sqlstatement.executeQuery();
+            if (result.next()) {
+                matchStatistic = result.getString(1);
             }
-            
+            result.close();
         } catch (SQLException error) {
             System.out.println("Error getMatchStatistic: " + error.getMessage());
         }
