@@ -56,4 +56,4 @@ _Reset_ nappulaa painamalla voit tyhjentää omat tietosi tietokannasta ja aloit
 <img src="https://raw.githubusercontent.com/EgoTastic/LeagueCounterPicker/main/Dokumentaatio/Kuvat/kayttokuva8.png">
 
 ### Status kun painaa toisen kerran putkeen
-<img src="https://raw.githubusercontent.com/EgoTastic/LeagueCounterPicker/main/Dokumentaatio/Kuvat/kayttokuva8.png">
+<img src="https://raw.githubusercontent.com/EgoTastic/LeagueCounterPicker/main/Dokumentaatio/Kuvat/kayttokuva9.png">
