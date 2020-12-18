@@ -146,7 +146,7 @@ public class DataHandler {
             
             comparePercent = DataAssistingTools.countWinRate(this.database.getWinRatesBaseStatistics(enemyChampionList, i), true);
             
-            if (comparePercent >= bestPercent) {
+            if (comparePercent >= bestPercent && comparePercent != 0) {
                 bestPercent = comparePercent;
                 bestChamp = i;
             }              
