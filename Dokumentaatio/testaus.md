@@ -25,11 +25,11 @@ _DatabaseIF_ luokan testauksista ulkopuolelle jää ainoastaan _resetAllPersonal
 
 ## Testauskattavuus
 
-Varsinaisen testikattavuus on rivien osalta 77% ja haaraumien osalta 93%.
+Varsinaisen testikattavuus on rivien osalta 77% ja haaraumien osalta 88%.
 
 <img src="https://raw.githubusercontent.com/EgoTastic/LeagueCounterPicker/main/Dokumentaatio/Kuvat/testaus1.png">
 
 ## Järjestelmätestaus
 
-Sovellus on testattu macOS ja Windows ympäristöissä sekä ei koulun Linuxilla. Cubbli-linux opiskelijatunnuksilla ei anna sqliten kirjoittaa tietokantaan mitään, tunnettu ongelma telegrammista päätellen.
+Sovellus on testattu macOS ja Windows ympäristöissä. Cubbli-linux opiskelijatunnuksilla ei anna sqliten kirjoittaa tietokantaan mitään, tunnettu ongelma telegrammista päätellen.
 

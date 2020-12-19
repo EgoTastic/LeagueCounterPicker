@@ -122,6 +122,18 @@ public class DataHandlerTest {
         assertFalse(result);
     }
     
+    @Test
+    public void saveWithWrongRole() {
+        ArrayList<String> champs = new ArrayList<>();
+        champs.add("Akali");
+        champs.add("Ahri");
+        champs.add("Annie");
+        champs.add("Ezreal");
+        champs.add("Lux");       
+        boolean result = handler.saveMatch(true, champs, "Nami", "Role");
+        assertFalse(result);
+    }
+    
     
     @Test
     public void saveWithWrongList() {
@@ -153,5 +165,6 @@ public class DataHandlerTest {
     public void databaseExists() {
         assertTrue(handler.connectionToDatabase());
     }
+    
     
 }

@@ -1,7 +1,7 @@
 package leaguecounter.domain;
 
 import leaguecounter.database.DatabaseIF;
-import leaguecounter.domain.DataAssistingTools;
+
 import java.util.ArrayList;
 
 /**
@@ -44,11 +44,11 @@ public class DataHandler {
      * @param championPicked The Champion, that the player played as
      * @param role The role that the player was playing
      * 
-     * @see leaguecounter.database.DatabaseIF#setRolePlayed(String, String, String) 
+     * @see leaguecounter.database.DatabaseIF#setRolePlayed(int, String, String) 
      * @see leaguecounter.domain.DataAssistingTools#shortenRole(String)
-     * @see leaguecounter.database.DatabaseIF#getMatchStatistic(String, String) 
+     * @see leaguecounter.database.DatabaseIF#getMatchStatistic(String, int)  
      * @see leaguecounter.domain.DataAssistingTools#countNewStatistic(boolean, String)
-     * @see leaguecounter.database.DatabaseIF#setMatchStatistic(String, String, String)
+     * @see leaguecounter.database.DatabaseIF#setMatchStatistic(String, int, String) 
      * 
      * @return Returns true, if the save was succesfull, if the given information is incomplete, returns false
      */
@@ -59,11 +59,18 @@ public class DataHandler {
                 return false;
             }
         }
-        this.database.setRolePlayed(championPicked, DataAssistingTools.shortenRole(role), "1");
+        
+        int championID = this.database.getChampionId(championPicked);
+        
+        if (!this.database.setRolePlayed(championID, DataAssistingTools.shortenRole(role), "1")) {
+            return false;
+        }
         
         for (String enemyChampion:enemyChampionList) {                      
-            String newStatToSave = DataAssistingTools.countNewStatistic(victoryStatus, this.database.getMatchStatistic(enemyChampion, championPicked));            
-            this.database.setMatchStatistic(enemyChampion, championPicked, newStatToSave);            
+            String newStatToSave = DataAssistingTools.countNewStatistic(victoryStatus, this.database.getMatchStatistic(enemyChampion, championID));            
+            if (!this.database.setMatchStatistic(enemyChampion, championID, newStatToSave)) {
+                return false;
+            }            
         }        
         
         return true;
@@ -200,9 +207,11 @@ public class DataHandler {
      * Resets all personal statistics in the database
      * 
      * @see leaguecounter.database.DatabaseIF#resetAllPersonalStatistics()
+     * 
+     * @return boolean if save was succesful
      */
-    public void resetStats() {       
-        database.resetAllPersonalStatistics();
+    public boolean resetStats() {       
+        return this.database.resetAllPersonalStatistics();
     }
     
 

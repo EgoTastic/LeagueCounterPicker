@@ -206,11 +206,16 @@ public class UI extends Application{
             
         });
         
+        // Resets all personal statistics to 0
         resetAllStats.setOnAction((event) -> {
             if(this.secondClick) {
-                handler.resetStats();
-                status.setText("Statistics reset"); 
-                emptyLabel.setText(" ");
+                if(handler.resetStats()) {
+                    status.setText("Statistics reset"); 
+                    emptyLabel.setText(" ");
+                } else {
+                    status.setText("Reset failed!");
+                    emptyLabel.setText(" ");
+                }               
                 this.secondClick = false;
             } else {
                 emptyLabel.setText("Are you sure?");

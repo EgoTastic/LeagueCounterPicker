@@ -1,7 +1,7 @@
 # Käyttöohje
 
-Lataa tiedosto LeagueCounterPicker.jar sekä tietokantatiedostot "Picks.db" ja "Picks_testeihin.db" [Täältä](https://github.com/EgoTastic/LeagueCounterPicker/releases/loppupalautus)  
-Ohjelma tarvitsee yhden _picks.db_ nimisen tietokanta tiedoston samaan kansioon missä ohjelma ajetaan. Releasen mukana tuleva Picks.db on tyhjä, uudelle käyttäjälle tarkoitettu tietokanta missä ei ole mitään käyttäjäkohtaista dataa vielä. _Picks_testeihin.db_ taas sisältää etukäteen hieman laitettua dataa, käytä tätä tiedostoa maven testejä varten (muuten testattaisiin tyhjää tietokantaa). Testaamista varten muista niemtä "Picks_testeihin.db" uudestaan nimelle "Picks.db"
+Lataa tiedosto LeagueCounterPicker.jar sekä tietokantatiedostot "Picks_uusipohja.db" ja "Picks_testeihin.db" [Täältä](https://github.com/EgoTastic/LeagueCounterPicker/releases/loppupalautus)  
+Ohjelma tarvitsee yhden _Picks.db_ nimisen tietokanta tiedoston samaan kansioon missä ohjelma ajetaan. Releasen mukana tuleva Picks.db on tyhjä, uudelle käyttäjälle tarkoitettu tietokanta missä ei ole mitään käyttäjäkohtaista dataa vielä. _Picks_testeihin.db_ taas sisältää etukäteen hieman laitettua dataa, käytä tätä tiedostoa maven testejä varten (muuten testattaisiin tyhjää tietokantaa). Testaamista varten muista niemtä "Picks_testeihin.db" uudestaan nimelle "Picks.db"
 
 ## HUOMIO Cubbli-Linuxista  
 Opiskelijoille avoin Cubbli tuottaa ainakin saman SQLITE_BUSY ongelman mitä assarit ja muut opiskelijat ovat maininneet telegrammissa. Kokeilin vielä luoda konsolissa täysin puhtaan tietokannan ja muokata sitä ja tuottaa saman ongelman joten koulun Cubblilla on suurempi ongelma?

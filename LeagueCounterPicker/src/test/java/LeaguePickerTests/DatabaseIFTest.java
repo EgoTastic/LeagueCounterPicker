@@ -5,7 +5,6 @@ import org.junit.jupiter.api.Test;
 import static org.junit.Assert.*;
 import leaguecounter.database.DatabaseIF;
 import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.BeforeEach;
 
 /**
  *
@@ -97,13 +96,13 @@ public class DatabaseIFTest {
     
     @Test
     public void getMatchStatisticsCorrect() {
-        String statistic = database.getMatchStatistic("Aatrox", "Blitzcrank");
+        String statistic = database.getMatchStatistic("Aatrox", 13);
         assertTrue("1,1".equals(statistic));
     }
     
     @Test
     public void getMatchStatisticIncorrect() {
-        String statistic = database.getMatchStatistic("Test", "Test2");
+        String statistic = database.getMatchStatistic("Test", 0);
         assertTrue("".equals(statistic));
     }
     
@@ -134,18 +133,30 @@ public class DatabaseIFTest {
     
     @Test
     public void saveNewStatistic() {
-        String oldStat = database.getMatchStatistic("Vladimir", "Nunu & Willump");
-        database.setMatchStatistic("Vladimir", "Nunu & Willump", "50,80");
-        assertEquals("50,80", database.getMatchStatistic("Vladimir", "Nunu & Willump"));
-        database.setMatchStatistic("Vladimir", "Nunu & Willump", oldStat);
+        String oldStat = database.getMatchStatistic("Vladimir", 83);
+        assertTrue(database.setMatchStatistic("Vladimir", 83, "50,80"));
+        assertEquals("50,80", database.getMatchStatistic("Vladimir", 83));
+        assertTrue(database.setMatchStatistic("Vladimir", 83, oldStat));
         
     }
     
     @Test
     public void saveRole() {
-        database.setRolePlayed(database.getChampionName(79), "sup", "1");
+        assertTrue(database.setRolePlayed(79, "sup", "1"));
         assertTrue(database.checkRoleOwnRoles(79, "sup"));
-        database.setRolePlayed(database.getChampionName(79), "sup", "null");
+        database.setRolePlayed(79, "sup", "null");
         
+    }
+    
+    @Test
+    public void getChampionIdCorrectName() {
+        int id = database.getChampionId("Nami");
+        assertTrue(id == 77);
+    }
+    
+    @Test
+    public void getChampionIdWrongName() {
+        int id = database.getChampionId("Matti");
+        assertTrue(id == 0);
     }
 }
