@@ -25,7 +25,7 @@ public class DatabaseIF {
      */
     public DatabaseIF() {
         try {
-            this.database = DriverManager.getConnection("jdbc:sqlite:Picks.db");
+            this.database = DriverManager.getConnection("jdbc:sqlite:./Picks.db");
         } catch (SQLException e) {
             System.out.println("Error DatabaseIF: " + e.getMessage());
         }
