@@ -45,8 +45,8 @@ DataAssistingTools toimii DataHandler luokan apuluokkana, se sisältää metodej
 
 * double countWinRate(ArrayList<Double> listOfWinRates, boolean baseStatistics)
 	* Laskee keskiarvon voittomahdollisuuksista listan perusteella
-	* Jos lista tyhjä, palauttaa -1
 	* Syötteenä lista voittomahdollisuuksista double muodossa ja tieto suoritetaanko lasku base vai own Statistics taulun mukaan
+	* Palauttaa keskiarvon voittomahdollisuuksista
 * ArrayList<Double> transformMatchStatisticsToWinRates(ArrayList<String> listOfMatchStatistics)
 	* Muuttaa saadun listan sisältämät "voitetut ottelut / kaikki ottelut" string muotoisen listaan, voitto prosenttilistaksi
 	* Mikäli otteluita ei ole, ohittaa kyseisen tilaston
