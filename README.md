@@ -30,6 +30,8 @@ Pelin jälkeen käyttäjä voi tallentaa vastapuolen joukkueen hahmot, oman hahm
     * baseStatistics taulu täytetty (tällä hetkellä satunnaista dataa konseptin vuoksi, eli kaikkia 7000 datapistettä ei kirjoitettu käsin)
   * Testausdokumentti luotu
   * Testien rivikattavuus lopulta n. 80%
+  * Pientä viilailua tietokannan käytössä
+  * Yksi suuri bugi löydetty ja korjattu
   * Checkstyle virheitä: 0
   * Oman statistiikan tyhjentämiseen luotu nappula
   * Tulevaisuudessa voisi tehdä
