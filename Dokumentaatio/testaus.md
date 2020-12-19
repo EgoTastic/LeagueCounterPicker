@@ -31,6 +31,5 @@ Varsinaisen testikattavuus on rivien osalta 77% ja haaraumien osalta 93%.
 
 ## Järjestelmätestaus
 
-Sovellus on testattu yliopiston Cubblikoneilla myös alkuperäisen ohjelmointiympäristön (MacOS) lisäksi.  
-Cubbli -koneilla on suoritettu lataus lopullisesta releasesta ja kokeiltu hahmoehdotuksien hakua, otteluiden tallentamista sekä tilastojen tyhjentämistä. Kokeiltu on myös että virhellisen tietokannan tilanteessa tuotetaan virheteksti.
+Sovellus on testattu macOS ja Windows ympäristöissä sekä ei koulun Linuxilla. Cubbli-linux opiskelijatunnuksilla ei anna sqliten kirjoittaa tietokantaan mitään, tunnettu ongelma telegrammista päätellen.
 
