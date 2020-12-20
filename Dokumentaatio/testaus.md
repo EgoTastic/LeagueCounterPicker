@@ -25,7 +25,7 @@ _DatabaseIF_ luokan testauksista ulkopuolelle jää ainoastaan _resetAllPersonal
 
 ## Testauskattavuus
 
-Varsinaisen testikattavuus on rivien osalta 77% ja haaraumien osalta 88%.
+Varsinaisen testikattavuus on rivien osalta 77% ja haaraumien osalta 86%.
 
 <img src="https://raw.githubusercontent.com/EgoTastic/LeagueCounterPicker/main/Dokumentaatio/Kuvat/testaus1.png">
 

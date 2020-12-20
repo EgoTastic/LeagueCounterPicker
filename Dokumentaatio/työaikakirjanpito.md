@@ -19,4 +19,5 @@
 | 17.12. | 5 | Koodiparantelua, tietokannan alustaminen |
 | 18.12. | 6 | Loppudokumentaatio, testailu, release |
 | 19.12. | 14 | Yritystä selvittää miksi koulun Cubbli tuottaa SQL_BUSY errorin KAIKILLA MAHDOLLISILLA kirjoituksilla, uusilla tiedostoilla olemassa olevilla jne jne. Viimehetken korjailuja, dokumentaatio loppuun, javadoc korjailua. Viimeinen kriittinen (tiedossa oleva) bugi listitty |
-| yht | 100 ||
+| 20.12. | 1 | Parannus tietokannan tarkistukseen |
+| yht | 101 ||

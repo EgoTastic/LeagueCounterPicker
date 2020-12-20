@@ -6,6 +6,7 @@ import java.sql.Statement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
@@ -39,13 +40,20 @@ public class DatabaseIF {
      */
     public boolean checkIfDatabaseExists() {
         
+        List<String> names = List.of("baseRoles", "baseStatistics", "ownRoles", "ownStatistics");
+        int i = 0;
         boolean dbExists = false;
         
         try (ResultSet result = this.database.getMetaData().getTables(null, null, null, null)) {
             
             while (result.next()) {
-                dbExists = true;
+                if (!result.getString(3).equals(names.get(i))) {
+                    return dbExists;
+                }
+                i++;
             }
+            
+            dbExists = true;
             
         } catch (SQLException error) {          
             System.out.println("Error checkIfDatabaseExistsAndConnect: " + error.getMessage());       
